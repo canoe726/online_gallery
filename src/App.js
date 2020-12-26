@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 import './App.scss';
 
-import Menu from './components/menu';
+import Home from './components/home/home';
 
 class App extends Component {
   render() {
+    const { location } = this.props;
+
     return (
-      <div className="App">
-        <Menu></Menu>
-      </div>
+      <Switch location={location}>
+        <Route exact path="/" component={Home}></Route>
+      </Switch>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
