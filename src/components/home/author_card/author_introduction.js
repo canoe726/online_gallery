@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class NowExhibition extends Component {
+class AuthorIntroduction extends Component {
     constructor(props) {
         super(props);
 
@@ -13,23 +13,23 @@ class NowExhibition extends Component {
     }
 
     componentDidMount() {
-        this.makeExhibitionCard();
+        this.makeAuthorCard();
         // setInterval(() => {
-        //     this.rotatingExhibitionCard();
+        //     this.rotatingAuthorCard();
         // }, 15000);
     }
 
     render() {
         return(
-            <div className="now-exhibition-wrapper">
-                <div className="title">진행중 전시</div>
+            <div className="author-introduction-wrapper">
+                <div className="title">작가 소개</div>
                 <div className="card-wrapper"></div>
             </div>
         );
     }
 
-    makeExhibitionCard() {
-        const cardWrapper = document.querySelector('.now-exhibition-wrapper .card-wrapper');
+    makeAuthorCard() {
+        const cardWrapper = document.querySelector('.author-introduction-wrapper .card-wrapper');
 
         for(let idx=0; idx<this.cardSize; idx++) {
             const cardItem = document.createElement('div');
@@ -55,17 +55,17 @@ class NowExhibition extends Component {
         }
     }
 
-    rotatingExhibitionCard() {
-        const exhibitionCardImage = document.querySelectorAll('.now-exhibition-wrapper .card-item .cover-img');
+    rotatingAuthorCard() {
+        const authorCardImage = document.querySelectorAll('.author-introduction-wrapper .card-item .cover-img');
 
-        exhibitionCardImage.forEach((image, idx) => {
+        authorCardImage.forEach((image, idx) => {
             image.style.opacity = 0;
         });
 
         setTimeout(() => {
             this.cardIdx += this.cardSize;
             if(this.cardIdx >= this.state.imgInfo.paths.length) { this.cardIdx = 0; }
-            exhibitionCardImage.forEach((image, idx) => {
+            authorCardImage.forEach((image, idx) => {
                 image.src = this.state.imgInfo.paths[this.cardIdx + idx];
                 image.style.opacity = 1;
                 image.removeAttribute("style");
@@ -74,4 +74,4 @@ class NowExhibition extends Component {
     }
 }
 
-export default NowExhibition;
+export default AuthorIntroduction;

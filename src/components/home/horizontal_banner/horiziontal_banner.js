@@ -4,20 +4,20 @@ class HorizontalBanner extends Component {
     constructor(props) {
         super(props);
 
-        this.card_idx = 1;
+        this.cardIdx = 1;
 
         this.state = {
-            img_info: props.img_info
+            imgInfo: props.imgInfo
         }
     }
 
     componentDidMount() {
         this.makeBannerCards();
         
-        this.showSlides(this.card_idx);
+        this.showSlides(this.cardIdx);
         // setInterval(() => {
-        //     this.card_idx += 1;
-        //     this.showSlides(this.card_idx);
+        //     this.cardIdx += 1;
+        //     this.showSlides(this.cardIdx);
         // }, 3000);
     }
 
@@ -25,6 +25,9 @@ class HorizontalBanner extends Component {
         return (
             <div className="horizontal-banner">
                 <div className="banner-card-wrapper"></div>
+                
+                <div className="prev" onClick={this.plusSlides.bind(this, -1)}>&#10094;</div>
+                <div className="next" onClick={this.plusSlides.bind(this, 1)}>&#10095;</div>
 
                 <div className="banner-dot">
                     <span className="dot" onClick={this.currentSlide.bind(this, 1)}></span> 
@@ -38,7 +41,7 @@ class HorizontalBanner extends Component {
     makeBannerCards() {
         const bannerCardWrappper = document.querySelector('.banner-card-wrapper');
 
-        this.state.img_info.paths.forEach(path => {
+        this.state.imgInfo.paths.forEach(path => {
             const slideCard = document.createElement('div');
             slideCard.className = 'slide-card fade';
 
@@ -52,6 +55,10 @@ class HorizontalBanner extends Component {
         });        
     }
 
+    plusSlides(idx, e) {
+        this.showSlides(this.cardIdx += idx);
+    }
+
     currentSlide(idx, e) {
         this.showSlides(idx);
     }
@@ -60,10 +67,10 @@ class HorizontalBanner extends Component {
         const cards = document.querySelectorAll('.slide-card');
         const dots = document.querySelectorAll('.dot');
 
-        this.card_idx = idx;
+        this.cardIdx = idx;
     
-        if(this.card_idx > cards.length) { this.card_idx = 1; }
-        if(this.card_idx < 1) { this.card_idx = cards.length; }
+        if(this.cardIdx > cards.length) { this.cardIdx = 1; }
+        if(this.cardIdx < 1) { this.cardIdx = cards.length; }
 
         cards.forEach(card => {
             card.style.display = 'none';
@@ -73,8 +80,8 @@ class HorizontalBanner extends Component {
             dot.classList.remove('active');
         });
 
-        cards[this.card_idx-1].style.display = 'block';
-        dots[this.card_idx-1].classList.add('active');
+        cards[this.cardIdx-1].style.display = 'block';
+        dots[this.cardIdx-1].classList.add('active');
     }
 }
 
