@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import '../../style/exhibition/exhibition.scss';
+import '../../style/author/author.scss';
 
 import GridGallery from './grid_gallery';
 
-class Exhibition extends Component {
+class Author extends Component {
     constructor(props) {
         super(props);
 
@@ -16,7 +16,7 @@ class Exhibition extends Component {
 
     render() {
         return (
-            <div className="exhibition-wrapper">
+            <div className="author-wrapper">
                 <GridGallery
                 imgInfo={{paths:this.state.paths}}
                 onScroll={mode => {
@@ -28,4 +28,4 @@ class Exhibition extends Component {
     }
 }
 
-export default Exhibition;
+export default Author;

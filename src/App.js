@@ -8,6 +8,8 @@ import Menu from './components/menu/menu';
 import Home from './components/home/home';
 import Introduction from './components/introduction/introduction';
 import Exhibition from './components/exhibition/exhibition';
+import Author from './components/author/author';
+import Notice from './components/notice/notice';
 
 class App extends Component {
   render() {
@@ -21,8 +23,8 @@ class App extends Component {
           <Route exact path="/" component={Home}></Route>
           <Route exact path="/introduction" component={Introduction}></Route>
           <Route exact path="/exhibition" component={Exhibition}></Route>
-          <Route exact path="/author" component={Home}></Route>
-          <Route exact path="/notice" component={Home}></Route>
+          <Route exact path="/author" component={Author}></Route>
+          <Route exact path="/notice" component={Notice}></Route>
         </Switch>
       </div>      
     );
