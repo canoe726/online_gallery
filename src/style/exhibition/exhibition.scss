@@ -1,0 +1,58 @@
+.exhibition-wrapper {
+
+    .masonry-layout {
+        margin-top: 60px;
+        --gap: 0.5em;
+        --min-width: 15em;
+        --width: minmax(min(var(--min-width),100%),1fr);
+
+        display: grid;
+        grid-template-columns: repeat(auto-fit,var(--width));
+        justify-content: center;
+        grid-gap: var(--gap);
+        padding: var(--gap);
+
+        .masonry-item {
+            position: relative;
+            transition: 2s all;
+
+            .item-img {
+                width: 100%;
+                border-radius: 10px;
+                transition: 2s ease;
+            }
+
+            .lazy {
+                opacity: 0;
+            }
+
+            .caption-wrapper {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                transition: 0.5s ease;
+                opacity: 0;
+    
+                .caption {
+                    color: black;
+                    font-size: large;
+                    font-weight: bold;
+                }
+
+                .author {
+                    margin-top: 20px;
+                }
+            }
+
+            .item-img:hover {
+                opacity: 0.3;
+            }
+    
+            .item-img:hover + .caption-wrapper {
+                opacity: 1;
+                pointer-events: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+@import 'introduction_card.scss';
+
+.introduction-wrapper {
+    margin-top: 60px;
+    width: 100%;
+
+    .introduction-card {
+        width: 100%;
+        display: flex;
+
+        .left {
+            width: 40%;
+
+            .card-img {
+                width: 100%;
+            }
+        }
+
+        .right {
+            width: 60%;
+
+            div {
+                text-align: center;
+            }
+        }
+    }
+}

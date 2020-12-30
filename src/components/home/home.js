@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 
 import '../../style/home/home.scss';
 
-import Menu from './menu/menu';
+import Footer from '../footer/footer';
+
 import HorizontalBanner from './horizontal_banner/horiziontal_banner';
 
 import NowExhibition from './exhibition_card/now_exhibition';
 
 import AuthorIntroduction from './author_card/author_introduction';
-
-import Footer from './footer/footer';
 
 import { lazyLoad } from '../../util/lazyLoading';
 
@@ -21,8 +20,6 @@ class Home extends Component {
     render() {
         return (
             <div className="home">
-                <Menu></Menu>
-
                 <HorizontalBanner
                 imgInfo={{paths: ['sample_img/image1.jpg', 'sample_img/image2.jpg', 'sample_img/image3.jpg']}}
                 ></HorizontalBanner>
