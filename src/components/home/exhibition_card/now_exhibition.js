@@ -14,9 +14,9 @@ class NowExhibition extends Component {
 
     componentDidMount() {
         this.makeExhibitionCard();
-        // setInterval(() => {
-        //     this.rotatingExhibitionCard();
-        // }, 15000);
+        setInterval(() => {
+            this.rotatingExhibitionCard();
+        }, 15000);
     }
 
     render() {
@@ -59,18 +59,20 @@ class NowExhibition extends Component {
         const exhibitionCardImage = document.querySelectorAll('.now-exhibition-wrapper .card-item .cover-img');
 
         exhibitionCardImage.forEach((image, idx) => {
-            image.style.opacity = 0;
+            setTimeout(() => {
+                image.style.opacity = 0;
+            }, (idx*100));
         });
-
-        setTimeout(() => {
-            this.cardIdx += this.cardSize;
-            if(this.cardIdx >= this.state.imgInfo.paths.length) { this.cardIdx = 0; }
-            exhibitionCardImage.forEach((image, idx) => {
+        
+        this.cardIdx += this.cardSize;
+        if(this.cardIdx >= this.state.imgInfo.paths.length) { this.cardIdx = 0; }
+        exhibitionCardImage.forEach((image, idx) => {
+            setTimeout(() => {
                 image.src = this.state.imgInfo.paths[this.cardIdx + idx];
                 image.style.opacity = 1;
                 image.removeAttribute("style");
-            });
-        }, 1000);
+            }, 1000 + (idx*100));
+        });
     }
 }
 

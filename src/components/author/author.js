@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import '../../style/author/author.scss';
 
+import MasonryLoading from '../loading/masonry_loading';
 import GridGallery from './grid_gallery';
 
 class Author extends Component {
@@ -9,20 +10,30 @@ class Author extends Component {
         super(props);
 
         this.state = {
-            paths: ['sample_img/image1.jpg', 'sample_img/image2.jpg', 'sample_img/image3.jpg', 'sample_img/image4.jpg', 'sample_img/image5.jpg', 'sample_img/image6.jpg', 'sample_img/image7.jpg', 'sample_img/image8.jpg','sample_img/image1.jpg', 'sample_img/image2.jpg', 'sample_img/image3.jpg', 'sample_img/image4.jpg', 'sample_img/image5.jpg', 'sample_img/image6.jpg', 'sample_img/image7.jpg', 'sample_img/image8.jpg'],
-            changedPaths: ['sample_img/image8.jpg', 'sample_img/image7.jpg', 'sample_img/image6.jpg', 'sample_img/image5.jpg', 'sample_img/image4.jpg', 'sample_img/image3.jpg', 'sample_img/image2.jpg', 'sample_img/image1.jpg'],
+            paths: ['sample_img/artist1.jpg', 'sample_img/artist2.jpg',
+             'sample_img/artist3.jpg', 'sample_img/artist4.jpg', 
+             'sample_img/artist5.jpg', 'sample_img/artist6.jpg', 
+             'sample_img/artist7.jpg', 'sample_img/artist8.jpg',],
+            changedPaths: ['sample_img/artist8.jpg', 'sample_img/artist7.jpg', 
+            'sample_img/artist6.jpg', 'sample_img/artist5.jpg', 
+            'sample_img/artist4.jpg', 'sample_img/artist3.jpg', 
+            'sample_img/artist2.jpg', 'sample_img/artist1.jpg'],
         }
     }
 
     render() {
         return (
             <div className="author-wrapper">
-                <GridGallery
-                imgInfo={{paths:this.state.paths}}
-                onScroll={mode => {
-                    return {paths:this.state.changedPaths};
-                }}
-                ></GridGallery>
+                <div className="masonry-wrapper">
+                    <GridGallery
+                    imgInfo={{paths:this.state.paths}}
+                    onScroll={mode => {
+                        return {paths:this.state.changedPaths};
+                    }}
+                    ></GridGallery>
+                </div>
+                
+                <MasonryLoading></MasonryLoading>
             </div>
         );
     }

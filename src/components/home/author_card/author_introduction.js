@@ -14,9 +14,9 @@ class AuthorIntroduction extends Component {
 
     componentDidMount() {
         this.makeAuthorCard();
-        // setInterval(() => {
-        //     this.rotatingAuthorCard();
-        // }, 15000);
+        setInterval(() => {
+            this.rotatingAuthorCard();
+        }, 15000);
     }
 
     render() {
@@ -59,18 +59,20 @@ class AuthorIntroduction extends Component {
         const authorCardImage = document.querySelectorAll('.author-introduction-wrapper .card-item .cover-img');
 
         authorCardImage.forEach((image, idx) => {
-            image.style.opacity = 0;
+            setTimeout(() => {
+                image.style.opacity = 0;
+            }, ((authorCardImage.length + idx)*100));
         });
 
-        setTimeout(() => {
-            this.cardIdx += this.cardSize;
-            if(this.cardIdx >= this.state.imgInfo.paths.length) { this.cardIdx = 0; }
-            authorCardImage.forEach((image, idx) => {
+        this.cardIdx += this.cardSize;
+        if(this.cardIdx >= this.state.imgInfo.paths.length) { this.cardIdx = 0; }
+        authorCardImage.forEach((image, idx) => {
+            setTimeout(() => {
                 image.src = this.state.imgInfo.paths[this.cardIdx + idx];
                 image.style.opacity = 1;
                 image.removeAttribute("style");
-            });
-        }, 1000);
+            }, 1000 + ((authorCardImage.length + idx)*100));
+        });
     }
 }
 

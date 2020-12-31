@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 
+import { toggleMasonryLoading } from '../loading/masonry_loading';
+
 import { lazyLoad } from '../../util/lazyLoading';
+import { resizeAllMasonryItems } from '../../util/masonry';
 
 class GridGallery extends Component {
     constructor(props) {
         super(props);
+
+        this.isFetch = false;
 
         this.state = {
             imgInfo: props.imgInfo
@@ -23,8 +28,6 @@ class GridGallery extends Component {
         masonryEvents.forEach(event => {
             window.addEventListener(event, resizeAllMasonryItems);
         });
-
-        waitForImages();
     }
 
     render() {
@@ -72,60 +75,23 @@ class GridGallery extends Component {
         const scrollTop = document.documentElement.scrollTop;
         const clientHeight = document.documentElement.clientHeight;
 
-        if(scrollTop + clientHeight >= scrollHeight) {
+        // 스크롤이 최하단이면서 fetch 중이 아닐 때 호출
+        if(scrollTop + clientHeight >= scrollHeight && !this.isFetch) {
+            toggleMasonryLoading();
             const data = this.props.onScroll('exhibition');
 
+            this.isFetch = true;
             if(!data) {
                 // 더이상 호출가능한 데이터가 없습니다.
+                return;
             }
 
             this.addMasonryItems(data);
             lazyLoad();
-            resizeAllMasonryItems();
+            toggleMasonryLoading();
+            this.isFetch = false;
         }
     }
 } 
-
-function resizeMasonryItem(item) {
-    /* Get the grid object, its row-gap, and the size of its implicit rows */
-    const grid = document.querySelector('.masonry');
-    const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
-    const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
-  
-    /*
-     * Spanning for any brick = S
-     * Grid's row-gap = G
-     * Size of grid's implicitly create row-track = R
-     * Height of item content = H
-     * Net height of the item = H1 = H + G
-     * Net height of the implicit row-track = T = G + R
-     * S = H1 / T
-     */
-    var rowSpan = Math.ceil((item.querySelector('.item-img').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
-  
-    /* Set the spanning as calculated above (S) */
-    item.style.gridRowEnd = 'span ' + rowSpan;
-}
-
-// 모든 masonry-item 에 대해서 크기 조정
-function resizeAllMasonryItems() {
-    const allItems = document.querySelectorAll('.masonry-item');
-    console.log(allItems)
-    allItems.forEach(item => {
-      resizeMasonryItem(item);
-    });
-}
-
-// 이미지가 로딩 된 후 모든 크기 조정
-function waitForImages() {
-    const allItems = document.querySelectorAll('.masonry-item');
-    allItems.forEach(item => {
-        const itemImg = item.querySelector('.item-img');
-        const notLoad = itemImg.classList.contains('lazy');
-        if(!notLoad) {
-            resizeMasonryItem(item);
-        }
-    });
-}
 
 export default GridGallery;

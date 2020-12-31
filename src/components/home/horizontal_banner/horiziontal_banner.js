@@ -15,10 +15,10 @@ class HorizontalBanner extends Component {
         this.makeBannerCards();
         
         this.showSlides(this.cardIdx);
-        // setInterval(() => {
-        //     this.cardIdx += 1;
-        //     this.showSlides(this.cardIdx);
-        // }, 3000);
+        setInterval(() => {
+            this.cardIdx += 1;
+            this.showSlides(this.cardIdx);
+        }, 10000);
     }
 
     render() {

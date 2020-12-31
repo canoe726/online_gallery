@@ -1,10 +1,12 @@
+@import '../loading/masonry_loading.scss';
+
 .author-wrapper {
     margin: 60px 1em 0 1em;
 
     .masonry {
         display: grid;
         grid-gap: 1em;
-        grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+        grid-template-columns: repeat(auto-fill, minmax(330px,1fr));
         grid-auto-rows: 0;
 
         .masonry-item {

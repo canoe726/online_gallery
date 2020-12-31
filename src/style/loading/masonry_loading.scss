@@ -1,0 +1,16 @@
+.masonry-loading-wrapper {
+    width: 100%;
+    height: 180px;
+    position: relative;
+
+    .masonry-loading-img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.hidden {
+    display: none;
+}
