@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import NavBar from './nav_bar';
 
 class Menu extends Component {
@@ -13,7 +15,9 @@ class Menu extends Component {
                 <NavBar></NavBar>
         
                 <div className="gallery-logo">
-                    <a className="gallery-name" href="/">Online - Gallery</a>
+                    <Link to="/">
+                        <div className="gallery-name">Online - Gallery</div>
+                    </Link>
                 </div>
                 
                 <div className="search hidden">
@@ -25,8 +29,8 @@ class Menu extends Component {
 
     checkCurrentUrl() {
         const searchBtn = document.querySelector('.search');
-        const urls = window.location.href.split('/');
-        if(urls[3] === 'exhibition') {
+        const curUrl = window.location.pathname;
+        if(curUrl === 'exhibition') {
             searchBtn.classList.remove('hidden');
         } else {
             searchBtn.classList.add('hidden');

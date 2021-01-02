@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 class NowExhibition extends Component {
     constructor(props) {
@@ -40,6 +41,12 @@ class NowExhibition extends Component {
         for(let idx=0; idx<this.cardSize; idx++) {
             const cardItem = document.createElement('div');
             cardItem.className = 'card-item';
+            cardItem.dataset.id = idx;
+
+            cardItem.addEventListener('click', e => {
+                const itemId = e.target.parentNode.dataset.id
+                this.props.history.push(`/exhibition/${itemId}`);
+            });
 
             const cardImage = document.createElement('img');
             cardImage.className = 'cover-img';
@@ -82,4 +89,4 @@ class NowExhibition extends Component {
     }
 }
 
-export default NowExhibition;
+export default withRouter(NowExhibition);

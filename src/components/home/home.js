@@ -29,10 +29,10 @@ class Home extends Component {
                 ></NowExhibition>
 
                 <AuthorIntroduction
-                imgInfo={{paths: ['sample_img/artist8.jpg', 'sample_img/artist7.jpg',
-                'sample_img/artist6.jpg', 'sample_img/artist5.jpg',
-                'sample_img/artist4.jpg', 'sample_img/artist3.jpg',
-                'sample_img/artist2.jpg', 'sample_img/artist1.jpg']}}
+                imgInfo={{paths: ['sample_img/artist1.jpg', 'sample_img/artist2.jpg',
+                'sample_img/artist3.jpg', 'sample_img/artist4.jpg',
+                'sample_img/artist5.jpg', 'sample_img/artist6.jpg',
+                'sample_img/artist7.jpg', 'sample_img/artist8.jpg']}}
                 ></AuthorIntroduction>
 
                 <Footer></Footer>

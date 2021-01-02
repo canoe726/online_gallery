@@ -6,11 +6,9 @@ import { toggleMasonryLoading } from '../loading/masonry_loading';
 import { lazyLoad } from '../../util/lazyLoading';
 import { resizeAllMasonryItems } from '../../util/masonry';
 
-class GridGallery extends Component {
+class ArtworkMasonry extends Component {
     constructor(props) {
         super(props);
-
-        window.scrollTo(0,0);
         
         this.isFetch = false;
         this.itemId = 0;
@@ -120,4 +118,4 @@ class GridGallery extends Component {
     }
 }
 
-export default withRouter(GridGallery);
+export default withRouter(ArtworkMasonry);

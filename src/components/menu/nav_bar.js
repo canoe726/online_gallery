@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
     componentDidMount() {
-        document.addEventListener('click', this.handleClickOutside.bind(this));
+        window.addEventListener('click', this.handleClickOutside.bind(this));
     }
 
     render() {
@@ -14,21 +14,12 @@ class NavBar extends Component {
                     <i className="fas fa-bars" onClick={this.openNav.bind(this)}></i>
                 </div>
 
-                <div id="main-side-nav" className="nav-menus">
-                    {/* <a href="#closebtn" className="close-btn" onClick={this.closeNav.bind(this)}>&times;</a>
-                    <a href="/introduction">온라인 갤러리 소개</a>
-                    <a href="/exhibition">온라인 갤러리</a>
-                    <a href="/author">작가 소개</a>
-                    <a href="/notice">공지사항</a> */}
-                    
+                <div id="main-side-nav" className="nav-menus">                    
                     <a href="#closebtn" className="close-btn" onClick={this.closeNav.bind(this)}>&times;</a>
                     <Link to="/introduction">
                         <div>온라인 갤러리 소개</div>
                     </Link>
-                    <a href="/exhibition">온라인 갤러리</a>
-                    <a href="/author">작가 소개</a>
-                    <a href="/notice">공지사항</a>
-                    {/* <Link to="/exhibition">
+                    <Link to="/exhibition">
                         <div>온라인 갤러리</div>
                     </Link>
                     <Link to="/author">
@@ -36,7 +27,7 @@ class NavBar extends Component {
                     </Link>
                     <Link to="/notice">
                         <div>공지사항</div>
-                    </Link> */}
+                    </Link>
                 </div>
             </div>
         );

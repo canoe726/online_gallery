@@ -9,6 +9,7 @@ class Introduction extends Component {
         super(props);
 
         this.numOfSection = 3;
+        this.setFullPage = setFullPage.bind(this);
 
         // fetch data async
         this.state = {
@@ -36,7 +37,11 @@ class Introduction extends Component {
         // after fetch async add element
         this.makeIntroductionCard();
 
-        setFullPage();
+        window.addEventListener('wheel', this.setFullPage);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('wheel', this.setFullPage);
     }
 
     render() {

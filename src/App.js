@@ -25,9 +25,9 @@ class App extends Component {
           <Route exact path="/" component={Home}></Route>
           <Route exact path="/introduction" component={Introduction}></Route>
           <Route exact path="/exhibition" component={Exhibition}></Route>
-          <Route exact path="/exhibition_detail/:id" component={ExhibitionDetail}></Route>
+          <Route path="/exhibition/:id" component={ExhibitionDetail}></Route>
           <Route exact path="/author" component={Author}></Route>
-          <Route exact path="/author_detail/:id" component={AuthorDetail}></Route>
+          <Route exact path="/author/:id" component={AuthorDetail}></Route>
           <Route exact path="/notice" component={Notice}></Route>
         </Switch>
       </div>      

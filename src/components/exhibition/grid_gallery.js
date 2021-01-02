@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 
 import { toggleMasonryLoading } from '../loading/masonry_loading';
 
@@ -8,9 +9,13 @@ import { resizeAllMasonryItems } from '../../util/masonry';
 class GridGallery extends Component {
     constructor(props) {
         super(props);
+        
+        window.scrollTo(0,0);
 
         this.isFetch = false;
-        this.item_id = 0;
+        this.itemId = 0;
+        this.infinityScrollFunc = this.infinityScroll.bind(this);
+        this.resizeAllMasonryItems = resizeAllMasonryItems.bind(this);
 
         this.state = {
             imgInfo: props.imgInfo
@@ -22,12 +27,23 @@ class GridGallery extends Component {
         lazyLoad();
 
         // 무한 스크롤
-        window.addEventListener('scroll', this.infinityScroll.bind(this), true);
+        window.addEventListener('scroll', this.infinityScrollFunc);
 
         // Masonry
         const masonryEvents = ['load', 'resize'];
         masonryEvents.forEach(event => {
-            window.addEventListener(event, resizeAllMasonryItems, false);
+            window.addEventListener(event, this.resizeAllMasonryItems);
+        });
+    }
+
+    componentWillUnmount() {
+        // 무한 스크롤
+        window.removeEventListener('scroll', this.infinityScrollFunc);
+
+        // Masonry
+        const masonryEvents = ['load', 'resize'];
+        masonryEvents.forEach(event => {
+            window.removeEventListener(event, this.resizeAllMasonryItems);
         });
     }
 
@@ -40,15 +56,15 @@ class GridGallery extends Component {
     addMasonryItems(imgInfo) {
         const masonry = document.querySelector('.masonry');
 
-        imgInfo.paths.forEach(path => {
+        imgInfo.paths.forEach(path => { 
             const masonryItem = document.createElement('div');
             masonryItem.className = 'masonry-item';
-            masonryItem.dataset.id = this.item_id;
-            this.item_id += 1;
+            masonryItem.dataset.id = this.itemId;
 
             // exhibition_detail page 로 이동
-            masonryItem.addEventListener('click', () => {
-                
+            masonryItem.addEventListener('click', e => {
+                const itemId = e.target.parentNode.dataset.id
+                this.props.history.push(`/exhibition/${itemId}`);
             });
 
             const itemImg = document.createElement('img');
@@ -75,6 +91,8 @@ class GridGallery extends Component {
             masonryItem.appendChild(captionWrapper);
             
             masonry.appendChild(masonryItem);
+            
+            this.itemId += 1;
         });
     }
 
@@ -102,4 +120,4 @@ class GridGallery extends Component {
     }
 } 
 
-export default GridGallery;
+export default withRouter(GridGallery);
