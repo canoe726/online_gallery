@@ -71,6 +71,9 @@ class GridGallery extends Component {
     }
 
     infinityScroll() {
+        console.log('call author infinity scroll')
+        if(window.location.pathname !== '/author') return;
+
         const scrollHeight = document.documentElement.scrollHeight;
         const scrollTop = document.documentElement.scrollTop;
         const clientHeight = document.documentElement.clientHeight;

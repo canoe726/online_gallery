@@ -6,6 +6,7 @@ class NowExhibition extends Component {
 
         this.cardSize = 4;
         this.cardIdx = 0;
+        this.rotatingInterval = undefined;
 
         this.state = {
             imgInfo: props.imgInfo
@@ -14,9 +15,14 @@ class NowExhibition extends Component {
 
     componentDidMount() {
         this.makeExhibitionCard();
-        setInterval(() => {
+        
+        this.rotatingInterval = setInterval(() => {
             this.rotatingExhibitionCard();
         }, 15000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.rotatingInterval);
     }
 
     render() {

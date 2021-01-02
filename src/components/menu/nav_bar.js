@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { Link } from 'react-router-dom';
+
 class NavBar extends Component {
     componentDidMount() {
         document.addEventListener('click', this.handleClickOutside.bind(this));
@@ -13,11 +15,28 @@ class NavBar extends Component {
                 </div>
 
                 <div id="main-side-nav" className="nav-menus">
-                    <a href="#closebtn" className="close-btn" onClick={this.closeNav.bind(this)}>&times;</a>
+                    {/* <a href="#closebtn" className="close-btn" onClick={this.closeNav.bind(this)}>&times;</a>
                     <a href="/introduction">온라인 갤러리 소개</a>
                     <a href="/exhibition">온라인 갤러리</a>
                     <a href="/author">작가 소개</a>
+                    <a href="/notice">공지사항</a> */}
+                    
+                    <a href="#closebtn" className="close-btn" onClick={this.closeNav.bind(this)}>&times;</a>
+                    <Link to="/introduction">
+                        <div>온라인 갤러리 소개</div>
+                    </Link>
+                    <a href="/exhibition">온라인 갤러리</a>
+                    <a href="/author">작가 소개</a>
                     <a href="/notice">공지사항</a>
+                    {/* <Link to="/exhibition">
+                        <div>온라인 갤러리</div>
+                    </Link>
+                    <Link to="/author">
+                        <div>작가 소개</div>
+                    </Link>
+                    <Link to="/notice">
+                        <div>공지사항</div>
+                    </Link> */}
                 </div>
             </div>
         );

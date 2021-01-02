@@ -6,6 +6,7 @@ class AuthorIntroduction extends Component {
 
         this.cardSize = 4;
         this.cardIdx = 0;
+        this.rotatingInterval = undefined;
 
         this.state = {
             imgInfo: props.imgInfo
@@ -14,9 +15,14 @@ class AuthorIntroduction extends Component {
 
     componentDidMount() {
         this.makeAuthorCard();
-        setInterval(() => {
+        
+        this.rotatingInterval = setInterval(() => {
             this.rotatingAuthorCard();
         }, 15000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.rotatingInterval);
     }
 
     render() {

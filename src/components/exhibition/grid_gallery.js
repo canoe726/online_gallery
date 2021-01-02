@@ -10,6 +10,7 @@ class GridGallery extends Component {
         super(props);
 
         this.isFetch = false;
+        this.item_id = 0;
 
         this.state = {
             imgInfo: props.imgInfo
@@ -21,12 +22,12 @@ class GridGallery extends Component {
         lazyLoad();
 
         // 무한 스크롤
-        window.addEventListener('scroll', this.infinityScroll.bind(this));
+        window.addEventListener('scroll', this.infinityScroll.bind(this), true);
 
         // Masonry
         const masonryEvents = ['load', 'resize'];
         masonryEvents.forEach(event => {
-            window.addEventListener(event, resizeAllMasonryItems);
+            window.addEventListener(event, resizeAllMasonryItems, false);
         });
     }
 
@@ -42,6 +43,13 @@ class GridGallery extends Component {
         imgInfo.paths.forEach(path => {
             const masonryItem = document.createElement('div');
             masonryItem.className = 'masonry-item';
+            masonryItem.dataset.id = this.item_id;
+            this.item_id += 1;
+
+            // exhibition_detail page 로 이동
+            masonryItem.addEventListener('click', () => {
+                
+            });
 
             const itemImg = document.createElement('img');
             itemImg.className = 'item-img';

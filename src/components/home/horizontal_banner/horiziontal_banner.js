@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 
+import {withRouter} from 'react-router-dom';
+
 class HorizontalBanner extends Component {
     constructor(props) {
         super(props);
 
         this.cardIdx = 1;
+        this.bannerInterval = undefined;
 
         this.state = {
             imgInfo: props.imgInfo
@@ -15,11 +18,15 @@ class HorizontalBanner extends Component {
         this.makeBannerCards();
         
         this.showSlides(this.cardIdx);
-        setInterval(() => {
+        this.bannerInterval = setInterval(() => {
             this.cardIdx += 1;
             this.showSlides(this.cardIdx);
         }, 10000);
     }
+
+    componentWillUnmount() {
+        clearInterval(this.bannerInterval);
+    }    
 
     render() {
         return (
@@ -85,4 +92,4 @@ class HorizontalBanner extends Component {
     }
 }
 
-export default HorizontalBanner;
+export default withRouter(props => <HorizontalBanner {...props}/>);
