@@ -6,16 +6,15 @@ class HorizontalBanner extends Component {
     constructor(props) {
         super(props);
 
-        this.cardIdx = 1;
+        this.cardIdx = 0;
         this.bannerInterval = undefined;
-
-        this.state = {
-            imgInfo: props.imgInfo
-        }
+        this.currentSlide = this.currentSlide.bind(this);
+        this.plusSlides = this.plusSlides.bind(this);
     }
 
     componentDidMount() {
-        this.makeBannerCards();
+        this.initBannerCards();
+        this.initDots();
         
         this.showSlides(this.cardIdx);
         this.bannerInterval = setInterval(() => {
@@ -33,22 +32,30 @@ class HorizontalBanner extends Component {
             <div className="horizontal-banner">
                 <div className="banner-card-wrapper"></div>
                 
-                <div className="prev" onClick={this.plusSlides.bind(this, -1)}>&#10094;</div>
-                <div className="next" onClick={this.plusSlides.bind(this, 1)}>&#10095;</div>
+                <div className="prev" onClick={() => this.plusSlides(-1)}>&#10094;</div>
+                <div className="next" onClick={() => this.plusSlides(1)}>&#10095;</div>
 
-                <div className="banner-dot">
-                    <span className="dot" onClick={this.currentSlide.bind(this, 1)}></span> 
-                    <span className="dot" onClick={this.currentSlide.bind(this, 2)}></span> 
-                    <span className="dot" onClick={this.currentSlide.bind(this, 3)}></span> 
-                </div>
+                <div className="banner-dot"></div>
             </div>    
         );
     }
 
-    makeBannerCards() {
+    initDots() {
+        const bannerDot = document.querySelector('.banner-dot');
+        const dotSize = this.props.data.paths.length;
+        for(let idx=0; idx<dotSize; idx++) {
+            const dot = document.createElement('span');
+            dot.className = 'dot';
+            dot.addEventListener('click', () => this.currentSlide(idx));
+
+            bannerDot.appendChild(dot);
+        }
+    }
+
+    initBannerCards() {
         const bannerCardWrappper = document.querySelector('.banner-card-wrapper');
 
-        this.state.imgInfo.paths.forEach(path => {
+        this.props.data.paths.forEach(path => {
             const slideCard = document.createElement('div');
             slideCard.className = 'slide-card fade';
 
@@ -58,15 +65,15 @@ class HorizontalBanner extends Component {
             cardImg.alt = 'banner-card-item';
 
             slideCard.appendChild(cardImg);
-            bannerCardWrappper.append(slideCard);
+            bannerCardWrappper.appendChild(slideCard);
         });        
     }
 
-    plusSlides(idx, e) {
+    plusSlides(idx) {
         this.showSlides(this.cardIdx += idx);
     }
 
-    currentSlide(idx, e) {
+    currentSlide(idx) {
         this.showSlides(idx);
     }
 
@@ -76,8 +83,8 @@ class HorizontalBanner extends Component {
 
         this.cardIdx = idx;
     
-        if(this.cardIdx > cards.length) { this.cardIdx = 1; }
-        if(this.cardIdx < 1) { this.cardIdx = cards.length; }
+        if(this.cardIdx >= cards.length) { this.cardIdx = 0; }
+        if(this.cardIdx < 0) { this.cardIdx = cards.length - 1; }
 
         cards.forEach(card => {
             card.style.display = 'none';
@@ -87,8 +94,8 @@ class HorizontalBanner extends Component {
             dot.classList.remove('active');
         });
 
-        cards[this.cardIdx-1].style.display = 'block';
-        dots[this.cardIdx-1].classList.add('active');
+        cards[this.cardIdx].style.display = 'block';
+        dots[this.cardIdx].classList.add('active');
     }
 }
 

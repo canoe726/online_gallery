@@ -8,10 +8,6 @@ class AuthorIntroduction extends Component {
         this.cardSize = 4;
         this.cardIdx = 0;
         this.rotatingInterval = undefined;
-
-        this.state = {
-            imgInfo: props.imgInfo
-        }
     }
 
     componentDidMount() {
@@ -51,7 +47,7 @@ class AuthorIntroduction extends Component {
             const cardImage = document.createElement('img');
             cardImage.className = 'cover-img';
             cardImage.classList.add('lazy');
-            cardImage.dataset.src = this.state.imgInfo.paths[idx];
+            cardImage.dataset.src = this.props.data.paths[idx];
 
             const captionWrapper = document.createElement('div');
             captionWrapper.className = 'caption-wrapper';
@@ -78,10 +74,10 @@ class AuthorIntroduction extends Component {
         });
 
         this.cardIdx += this.cardSize;
-        if(this.cardIdx >= this.state.imgInfo.paths.length) { this.cardIdx = 0; }
+        if(this.cardIdx >= this.props.data.paths.length) { this.cardIdx = 0; }
         authorCardImage.forEach((image, idx) => {
             setTimeout(() => {
-                image.src = this.state.imgInfo.paths[this.cardIdx + idx];
+                image.src = this.props.data.paths[this.cardIdx + idx];
                 image.style.opacity = 1;
                 image.removeAttribute("style");
             }, 1000 + ((authorCardImage.length + idx)*100));
