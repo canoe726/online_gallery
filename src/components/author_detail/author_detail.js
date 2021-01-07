@@ -51,14 +51,16 @@ class AuthorDetail extends Component {
                 <InfoWrapper
                 ></InfoWrapper>
 
-                <ArtworkMasonry
-                imgInfo={{paths:this.state.paths}}
-                onScroll={mode => {
-                    return {paths:this.state.changedPaths};
-                }}
-                ></ArtworkMasonry>
-                
-                <MasonryLoading></MasonryLoading>
+                <div className="masonry-wrapper">
+                    <ArtworkMasonry
+                    imgInfo={{paths:this.state.paths}}
+                    onScroll={mode => {
+                        return {paths:this.state.changedPaths};
+                    }}
+                    ></ArtworkMasonry>
+                    
+                    <MasonryLoading></MasonryLoading>
+                </div>
             </div>
         );
     }
@@ -67,7 +69,6 @@ class AuthorDetail extends Component {
         const scrollY = window.scrollY;
         const zoomImg = document.querySelector('.zoom img');
         const scaleRatio = (100 + scrollY/5) / 100;
-        console.log(Math.floor(scaleRatio))
         if(Math.floor(scaleRatio) > 2) return;
         zoomImg.style.transform = `translate3d(-50%, -${scrollY/50}%, 0) scale(${scaleRatio})`;
     }
