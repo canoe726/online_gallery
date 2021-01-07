@@ -10,6 +10,7 @@ class Introduction extends Component {
 
         this.numOfSection = 3;
         this.setFullPage = setFullPage.bind(this);
+        this.initIntroductionCardData = this.initIntroductionCardData.bind(this);
 
         // fetch data async
         this.state = {
@@ -35,7 +36,9 @@ class Introduction extends Component {
 
     componentDidMount() {
         // after fetch async add element
-        this.makeIntroductionCard();
+        // this.initIntroductionCardData(async data)
+
+        this.initIntroductionCard();
 
         window.addEventListener('wheel', this.setFullPage);
     }
@@ -52,7 +55,13 @@ class Introduction extends Component {
         );
     }
 
-    makeIntroductionCard() {    
+    initIntroductionCardData(data) {
+        this.setState({
+            cardData: data
+        });
+    }
+
+    initIntroductionCard() {    
         const heroSlider = document.querySelector('#hero-slider');
         
         for(let idx=0; idx<this.numOfSection; idx++) {
