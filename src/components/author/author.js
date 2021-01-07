@@ -8,6 +8,8 @@ import GridGallery from './grid_gallery';
 class Author extends Component {
     constructor(props) {
         super(props);
+        
+        this.initGridGalleryData = this.initGridGalleryData.bind(this);
 
         this.state = {
             paths: ['sample_img/artist1.jpg', 'sample_img/artist2.jpg',
@@ -21,13 +23,26 @@ class Author extends Component {
         }
     }
 
+    componentDidMount() {
+        // fetch init data async
+        // this.initGridGalleryData(async_data);
+    }
+
     render() {
         return (
             <div className="author-wrapper">
                 <div className="masonry-wrapper">
                     <GridGallery
-                    imgInfo={{paths:this.state.paths}}
+                    data={
+                        {
+                            paths:this.state.paths
+                        }
+                        // this.state.gridGalleryData
+                    }
                     onScroll={mode => {
+                        // fetch data async and return
+                        // const response = api.fetch...
+
                         return {paths:this.state.changedPaths};
                     }}
                     ></GridGallery>
@@ -36,6 +51,12 @@ class Author extends Component {
                 <MasonryLoading></MasonryLoading>
             </div>
         );
+    }
+
+    initGridGalleryData(data) {
+        this.state({
+            gridGalleryData: data
+        });
     }
 }
 

@@ -9,6 +9,8 @@ class Exhibition extends Component {
     constructor(props) {
         super(props);
 
+        this.initGridGalleryData = this.initGridGalleryData.bind(this);
+
         this.state = {
             paths: ['sample_img/artwork1.jpg', 'sample_img/artwork2.jpg',
              'sample_img/artwork3.jpg', 'sample_img/artwork4.jpg', 
@@ -21,13 +23,26 @@ class Exhibition extends Component {
         }
     }
 
+    componentDidMount() {
+        // fetch init data async
+        // this.initGridGalleryData(async_data);
+    }
+
     render() {
         return (
             <div className="exhibition-wrapper">
                 <div className="masonry-wrapper">
                     <GridGallery
-                    imgInfo={{paths:this.state.paths}}
+                    data={
+                        {
+                            paths:this.state.paths
+                        }
+                        // this.state.gridGalleryData
+                    }
                     onScroll={mode => {
+                        // fetch data async and return
+                        // const response = api.fetch...
+
                         return {paths:this.state.changedPaths};
                     }}
                     ></GridGallery>
@@ -36,6 +51,12 @@ class Exhibition extends Component {
                 <MasonryLoading></MasonryLoading>
             </div>
         );
+    }
+
+    initGridGalleryData(data) {
+        this.state({
+            gridGalleryData: data
+        });
     }
 }
 

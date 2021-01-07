@@ -37,7 +37,7 @@ class Home extends Component {
                     {
                         paths: ['sample_img/banner1.jpg', 'sample_img/banner2.jpg', 'sample_img/banner3.jpg']
                     }
-                    // horizontalBannerData
+                    // this.state.horizontalBannerData
                 }
                 ></HorizontalBanner>
 
@@ -49,7 +49,7 @@ class Home extends Component {
                         'sample_img/artwork5.jpg', 'sample_img/artwork6.jpg',
                         'sample_img/artwork7.jpg', 'sample_img/artwork8.jpg']
                     }
-                    // howExhibitionData
+                    // this.state.howExhibitionData
                 }
                 ></NowExhibition>
 
@@ -61,7 +61,7 @@ class Home extends Component {
                         'sample_img/artist5.jpg', 'sample_img/artist6.jpg',
                         'sample_img/artist7.jpg', 'sample_img/artist8.jpg']
                     }
-                    // authorIntroductionData
+                    // this.state.authorIntroductionData
                 }
                 ></AuthorIntroduction>
 

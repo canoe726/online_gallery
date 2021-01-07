@@ -14,20 +14,16 @@ class GridGallery extends Component {
         
         this.isFetch = false;
         this.itemId = 0;
-        this.infinityScrollFunc = this.infinityScroll.bind(this);
+        this.infinityScroll = this.infinityScroll.bind(this);
         this.resizeAllMasonryItems = resizeAllMasonryItems.bind(this);
-
-        this.state = {
-            imgInfo: props.imgInfo
-        }
     }
 
     componentDidMount() {
-        this.addMasonryItems(this.state.imgInfo);
+        this.addMasonryItems(this.props.data);
         lazyLoad();
 
         // 무한 스크롤
-        window.addEventListener('scroll', this.infinityScrollFunc);
+        window.addEventListener('scroll', this.infinityScroll);
 
         // Masonry
         const masonryEvents = ['load', 'resize'];
@@ -38,7 +34,7 @@ class GridGallery extends Component {
 
     componentWillUnmount() {
         // 무한 스크롤
-        window.removeEventListener('scroll', this.infinityScrollFunc);
+        window.removeEventListener('scroll', this.infinityScroll);
 
         // Masonry
         const masonryEvents = ['load', 'resize'];
@@ -92,7 +88,7 @@ class GridGallery extends Component {
             
             masonry.appendChild(masonryItem);
             
-            this.itemId += 1;
+            this.itemId += 1;           // <- delete this, tempoary image id
         });
     }
 
