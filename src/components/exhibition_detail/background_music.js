@@ -6,6 +6,7 @@ class BackgroundMusic extends Component {
 
         this.playBackgroundMusic = this.playBackgroundMusic.bind(this);
         this.stopBackgroundMusic = this.stopBackgroundMusic.bind(this);
+        this.volumeBackgroundMusic = this.volumeBackgroundMusic(this);
     }
 
     componentDidMount() {
@@ -13,7 +14,6 @@ class BackgroundMusic extends Component {
     }
 
     componentDidUpdate() {
-        console.log('component updated!')
         this.initBackgroundMusic(this.props.data);
     }
 
@@ -30,7 +30,7 @@ class BackgroundMusic extends Component {
                     <i className="fas fa-stop" onClick={this.stopBackgroundMusic}></i>
                 </div>
 
-                <audio className="music">
+                <audio className="music" >
                     <source type="audio/mpeg"/>
                 </audio>
             </div>
@@ -43,9 +43,11 @@ class BackgroundMusic extends Component {
             const musicSource = backgroundMusic.querySelector('source');
             musicSource.src = data.musicPath;
 
-            backgroundMusic.currentTime = 0;
+            // at first not allowed autoplay music
             backgroundMusic.load();
+            backgroundMusic.volume = 0.2;
             backgroundMusic.play();
+            
         } else {
             backgroundMusic.pause();
         }
@@ -60,8 +62,10 @@ class BackgroundMusic extends Component {
         const backgroundMusic = document.querySelector('.background-music .music');
         backgroundMusic.pause();
     }
-    
-    
+
+    volumeBackgroundMusic() {
+        // volume controller
+    }
 }
 
 export default BackgroundMusic;

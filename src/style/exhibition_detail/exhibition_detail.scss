@@ -27,20 +27,31 @@
             height: 100%;
             object-fit: cover;
         }
+
+        .video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }    
 
-    .batch-img {
+    .batch-wrapper {
+        cursor: pointer;
         position: absolute;
         top: 25%;
-        left: 15%;
-        width: 25%;
-        height: 30%;
+        left: 5%;
+        width: 40%;
+        height: 45%;
 
         .img {
             width: 100%;
             height: 100%;
             object-fit: scale-down;
+        }
 
+        .video {
+            width: 100%;
+            object-fit: scale-down;
         }
     }
 
@@ -89,7 +100,6 @@
             background-color: black;
         }
     }
-      
-    
 
+    @import './modal_wrapper.scss';
 }

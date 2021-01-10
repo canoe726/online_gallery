@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import '../../style/exhibition_detail/exhibition_detail.scss';
 
 import BackgroundMusic from './background_music';
+import BackgroundWrapper from './background_wrapper';
+import BatchWrapper from './batch_wrapper';
+import BatchNote from './batch_note';
 
 import { api } from '../../api/online_gallery_api';
 
@@ -12,6 +15,10 @@ class ExhibitionDetail extends Component {
 
         // 현재 진행중인 전시 인덱스
         this.detailIdx = 0;
+        this.initBackgroundMusic = this.initBackgroundMusic.bind(this);
+        this.initBackgroundImg = this.initBackgroundImg.bind(this);
+        this.initBatchImg = this.initBatchImg.bind(this);
+        this.initBatchNote = this.initBatchNote.bind(this);
 
         this.state = {
             imgData: [],
@@ -33,7 +40,7 @@ class ExhibitionDetail extends Component {
                     backgroundImg:
                     {type: 'color', opacity: '0.8', imgPath: null, backgroundColor: '#15942365', imgBlur: null},
                     batchImg:
-                    {imgPath: '/sample_img/art_background.mp4', batchType: 'align', type: 'video', alignType: 'RC', vrImage: 'N', width: '120', height: '120'},
+                    {imgPath: '/sample_img/art_gallery.mp4', batchType: 'align', type: 'video', alignType: 'RC', vrImage: 'N', width: '120', height: '120'},
                     batchNote:
                     {
                         boxWidth: 30, boxHeight: 60, boxBorderColor: null, boxBorderOpacity: null, boxBackgroundColor: '#000000', boxBackgroundColorOpacity: null, boxRadius: '5', boxAlign: 'RB',
@@ -45,7 +52,7 @@ class ExhibitionDetail extends Component {
                     backgroundImg:
                     {type: 'video', opacity: null, imgPath: '/sample_img/art_background.mp4', backgroundColor: null, imgBlur: 'N'},
                     batchImg:
-                    {batchType: 'align', type: 'image', alignType: 'TC', vrImage: 'N', width: '200', height: '60'},
+                    {imgPath: '/sample_img/artwork_d_3.jpg', batchType: 'align', type: 'image', alignType: 'TC', vrImage: 'N', width: '200', height: '60'},
                     batchNote:
                     {
                         boxWidth: 20, boxHeight: 60, boxBorderColor: null, boxBorderOpacity: null, boxBackgroundColor: '#ffffff', boxBackgroundColorOpacity: null, boxRadius: '10', boxAlign: 'LC',
@@ -53,45 +60,34 @@ class ExhibitionDetail extends Component {
                     }
                 },
             ],
-
-            
-            curBackgroundMusic: {}
+            curBackgroundMusic: {},
+            curBackgroundImg: {},
+            curBatchImg: {},
+            curBatchNote: {},
         }
-        
-        this.initBackgroundMusic = this.initBackgroundMusic.bind(this);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         // data get async
-        const response = await api.getDetailArtworks();
-
-        // console.log(response);
-        if(!response.isError) {
-            const exhibition = response.data;
-            this.setState({
-                imgData: exhibition 
-            });
-
-            this.setState({
-                curBackgroundMusic: this.state.batchData[0].backgroundMusic
-            })
+        // const response = await api.getDetailArtworks();
+        // if(!response.isError) {
+        //     const exhibition = response.data;
             
-            this.initDot(3);
-            this.initBackgroundImg(this.state.batchData[0].backgroundImg);
-            this.initBackgroundMusic(0)
+        //     this.initDot(3);
+        //     this.initBackgroundImg(this.state.batchData[0].backgroundImg);
+        //     this.initBackgroundMusic(0)
 
-            this.showCurExhibition(this.detailIdx);
+        //     this.showCurExhibition(this.detailIdx);
 
-        } else {
-            console.log('error');
-        }
-    }
+        // } else {
+        //     console.log('error');
+        // }
 
-    initBackgroundMusic(idx) {
-        console.log(idx)
-        this.setState({
-            curBackgroundMusic: this.state.batchData[idx].backgroundMusic
-        });
+        this.initDot(this.state.batchData.length);
+        this.initBackgroundImg(0);
+        this.initBackgroundMusic(0)
+
+        this.showCurExhibition(this.detailIdx);
     }
 
     render() {
@@ -101,25 +97,68 @@ class ExhibitionDetail extends Component {
                 data={this.state.curBackgroundMusic}
                 ></BackgroundMusic>
 
-                <div className="background-img"></div>
+                <BackgroundWrapper
+                data={this.state.curBackgroundImg}
+                ></BackgroundWrapper>
 
-                <div className="batch-img">
-                    <img className="img" src="/sample_img/artwork1.jpg" alt="batch_img"></img>
-                </div>
+                <BatchWrapper
+                data={this.state.curBatchImg}
+                ></BatchWrapper>
 
-                <div className="batch-note">
-                    <div className="note-wrapper">
-                        <div className="author">작가명</div>
-                        <div className="title">제목명</div>
-                        <div className="material">재료</div>
-                        <div className="size">크기</div>
-                        <div className="year">제작년도</div>
-                    </div>
-                </div>
+                <BatchNote
+                data={this.state.curBatchNote}
+                ></BatchNote>
 
                 <div className="artwork-dot"></div>
+
+                <div id="modal-wrapper">
+                    <div class="modal-background">
+                        <div class="modal">
+                            <svg class="modal-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
+                                <rect x="0" y="0" fill="none" width="900" height="500" rx="10" ry="10"></rect>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         );
+    }
+
+    initDot(length) {           // 하단 dot 생성
+        const artworkDot = document.querySelector('.artwork-dot');
+        for(let idx=0; idx<length; idx++) {
+            const dot = document.createElement('span');
+            dot.className = 'dot';
+            dot.addEventListener('click', () => {
+                this.showCurExhibition(idx);
+            });
+            artworkDot.appendChild(dot);
+        }
+    }
+    
+    initBackgroundMusic(idx) {
+        this.setState({
+            curBackgroundMusic: this.state.batchData[idx].backgroundMusic
+        });
+    }
+
+    initBackgroundImg(idx) {
+        this.setState({
+            curBackgroundImg: this.state.batchData[idx].backgroundImg
+        });
+    }
+
+    initBatchImg(idx) {
+        this.setState({
+            curBatchImg: this.state.batchData[idx].batchImg
+        });
+    }
+
+    initBatchNote(idx) {
+        this.setState({
+            curBatchNote: this.state.batchData[idx].batchNote
+        });
     }
 
     showCurExhibition(idx) {
@@ -135,54 +174,13 @@ class ExhibitionDetail extends Component {
         const backgroundImage = document.querySelector('.background-img')
         backgroundImage.innerHTML = '';
 
-        this.initBackgroundImg(this.state.batchData[idx].backgroundImg);
-        this.initBackgroundMusic(idx)
+        this.initBackgroundMusic(idx);
+        this.initBackgroundImg(idx);
 
-        
-        
-    }
-
-    initDot(length) {           // 하단 dot 생성
-        const artworkDot = document.querySelector('.artwork-dot');
-        for(let idx=0; idx<length; idx++) {
-            const dot = document.createElement('span');
-            dot.className = 'dot';
-
-            dot.addEventListener('click', () => {
-                this.showCurExhibition(idx);
-            });
-            
-            artworkDot.appendChild(dot);
-        }
-    }
-
-    
-
-    initBackgroundImg(data) {       // 백그라운드 이미지 생성
-        const background = document.querySelector('.background-img');
-        
-        if(data.type === 'color') {
-            background.style.backgroundColor = data.backgroundColor;
-            background.style.opacity = data.opacity;
-
-        } else if(data.type === 'image') {
-            const backgroundImg = document.createElement('img');
-            backgroundImg.className = 'img';
-            backgroundImg.src = data.imgPath;
-
-            if(data.imgBlur === 'Y') {
-                backgroundImg.style.filter = 'blur(2px)';
-            }
-
-            background.appendChild(backgroundImg);
-
-        } else if(data.type === 'video') {
-            const backgroundVideo = document.createElement('div');
-            
-
-        }
-
-    }
+        // change batch
+        this.initBatchImg(idx);
+        this.initBatchNote(idx);
+    }    
 }
 
 export default ExhibitionDetail;
