@@ -6,6 +6,7 @@ class BatchWrapper extends Component {
 
         this.toggleModal = this.toggleModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.scaleModalImage = this.scaleModalImage.bind(this);
     }
 
     componentDidMount() {
@@ -25,14 +26,41 @@ class BatchWrapper extends Component {
         window.removeEventListener('click', this.closeModal);
     }
 
-    toggleModal(e) {
+    scaleModalImage(e) {
+        let isScrollUp = false;
+        if (e.deltaY < 0) isScrollUp = true;
+
+        const modal = e.target.parentNode;
+        const modalImg = modal.querySelector('.modal-img');
+
+        const transform = modalImg.style.transform;
+        if(!transform) {
+            if(isScrollUp) modalImg.style.transform = `scale(1.0)`;
+        } else {
+            let scaleSize = modalImg.style.transform.substr(6);
+            scaleSize = scaleSize.slice(0, -1);
+            scaleSize *= 1;
+
+            if(scaleSize === 1.0 && !isScrollUp) return;
+            if(scaleSize >= 5.0 && isScrollUp) return;
+
+            if(isScrollUp) modalImg.style.transform = `scale(${scaleSize + 0.05})`;
+            else modalImg.style.transform = `scale(${scaleSize - 0.05})`;
+        }
+    }
+
+    toggleModal() {
         const modalWrapper = document.body.querySelector('#modal-wrapper');                    
         if(modalWrapper.classList.contains('out')) {
             modalWrapper.classList.remove('out');
-
         } else {
             modalWrapper.classList.add('six');
         }
+
+        const modalImg = document.querySelector('#modal-wrapper .modal-img');
+        modalImg.removeAttribute('style');
+        
+        window.addEventListener('wheel', this.scaleModalImage);
     }
 
     closeModal(e) {
@@ -44,6 +72,8 @@ class BatchWrapper extends Component {
 
         if(isModalBackground && isSketch) {
             modalWrapper.classList.add('out');
+            
+            window.removeEventListener('wheel', this.scaleModalImage);
         }
     }
 

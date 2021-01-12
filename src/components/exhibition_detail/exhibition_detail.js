@@ -112,15 +112,15 @@ class ExhibitionDetail extends Component {
                 <div className="artwork-dot"></div>
 
                 <div id="modal-wrapper">
-                    <div class="modal-background">
-                        <div class="modal">
-                            <svg class="modal-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
-                                <rect x="0" y="0" fill="none" width="900" height="500" rx="10" ry="10"></rect>
+                    <div className="modal-background">
+                        <div className="modal">
+                            <img className="modal-img" src="/sample_img/artwork_d_2.jpg"></img>
+                            <svg className="modal-svg" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" fill="none" rx="0" ry="0" width="100%" height="100%"></rect>
                             </svg>
                         </div>
                     </div>
                 </div>
-                
             </div>
         );
     }
