@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import NavBar from './nav_bar';
+import NavBar from './navBar';
 
 class Menu extends Component {
     componentDidMount() {

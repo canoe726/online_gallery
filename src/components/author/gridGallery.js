@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 
-import { toggleMasonryLoading } from '../loading/masonry_loading';
+import { toggleMasonryLoading } from '../loading/masonryLoading';
 
 import { lazyLoad } from '../../util/lazyLoading';
 import { resizeAllMasonryItems } from '../../util/masonry';
@@ -9,9 +9,9 @@ import { resizeAllMasonryItems } from '../../util/masonry';
 class GridGallery extends Component {
     constructor(props) {
         super(props);
-        
-        window.scrollTo(0,0);
 
+        window.scrollTo(0,0);
+        
         this.isFetch = false;
         this.itemId = 0;
         this.infinityScroll = this.infinityScroll.bind(this);
@@ -52,7 +52,7 @@ class GridGallery extends Component {
     addMasonryItems(imgInfo) {
         const masonry = document.querySelector('.masonry');
 
-        imgInfo.paths.forEach(path => { 
+        imgInfo.paths.forEach(path => {
             const masonryItem = document.createElement('div');
             masonryItem.className = 'masonry-item';
             masonryItem.dataset.id = this.itemId;
@@ -60,7 +60,7 @@ class GridGallery extends Component {
             // exhibition_detail page 로 이동
             masonryItem.addEventListener('click', e => {
                 const itemId = e.target.parentNode.dataset.id
-                this.props.history.push(`/exhibition/${itemId}`);
+                this.props.history.push(`/author/${itemId}`);
             });
 
             const itemImg = document.createElement('img');
@@ -100,7 +100,7 @@ class GridGallery extends Component {
         // 스크롤이 최하단이면서 fetch 중이 아닐 때 호출
         if(scrollTop + clientHeight >= scrollHeight && !this.isFetch) {
             toggleMasonryLoading();
-            const data = this.props.onScroll('exhibition');
+            const data = this.props.onScroll('author');
 
             this.isFetch = true;
             if(!data) {
@@ -114,6 +114,6 @@ class GridGallery extends Component {
             this.isFetch = false;
         }
     }
-} 
+}
 
 export default withRouter(GridGallery);

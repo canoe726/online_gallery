@@ -1,0 +1,58 @@
+// COLORS
+$softorange: white;
+$tomatored: #F25C66;
+$mediumblu: #1E272D;
+
+.close-container{
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+
+  .leftright{
+    height: 2px;
+    width: 25px;
+    position: absolute;
+    margin-top: 12px;
+    background-color: $softorange;
+    transform: rotate(45deg);
+    transition: all .3s ease-in;
+  }
+  
+  .rightleft{
+    height: 2px;
+    width: 25px;
+    position: absolute;
+    margin-top: 12px;
+    background-color: $softorange;
+    transform: rotate(-45deg);
+    transition: all .3s ease-in;
+  }
+  
+  label{
+    color: white;
+    font-family: Helvetica, Arial, sans-serif; 
+    font-size: .6em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all .3s ease-in;
+    opacity: 0;
+  }
+}
+
+.close-container:hover .leftright {
+    transform: rotate(-45deg);
+    background-color: $tomatored;
+}
+
+.close-container:hover .rightleft {
+    transform: rotate(45deg);
+    background-color: $tomatored;
+}
+
+.close-container:hover label {
+    opacity: 1;
+}

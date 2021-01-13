@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
-import '../../style/exhibition_detail/exhibition_detail.scss';
+import '../../style/exhibition_detail/exhibitionDetail.scss';
 
-import BackgroundMusic from './background_music';
-import BackgroundWrapper from './background_wrapper';
-import BatchWrapper from './batch_wrapper';
-import BatchNote from './batch_note';
+import BackgroundMusic from './backgroundMusic';
+import BackgroundWrapper from './backgroundWrapper';
+import BatchWrapper from './batchWrapper';
+import BatchNote from './batchNote';
+import ModalWrapper from './modalWrapper';
 
-import { api } from '../../api/online_gallery_api';
+import { api } from '../../api/onlineGalleryApi';
 
 class ExhibitionDetail extends Component {
     constructor(props) {
@@ -90,6 +91,15 @@ class ExhibitionDetail extends Component {
         this.showCurExhibition(this.detailIdx);
     }
 
+    componentWillUnmount() {
+        const artworkDots = document.querySelectorAll('.artwork-dot .dot');
+        artworkDots.forEach((dot, idx) => {
+            dot.removeEventListener('click', () => {
+                this.showCurExhibition(idx);
+            });
+        });
+    }
+
     render() {
         return (
             <div className="exhibition-detail-wrapper">
@@ -111,16 +121,8 @@ class ExhibitionDetail extends Component {
 
                 <div className="artwork-dot"></div>
 
-                <div id="modal-wrapper">
-                    <div className="modal-background">
-                        <div className="modal">
-                            <img className="modal-img" src="/sample_img/artwork_d_2.jpg"></img>
-                            <svg className="modal-svg" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="0" y="0" fill="none" rx="0" ry="0" width="100%" height="100%"></rect>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+                <ModalWrapper
+                ></ModalWrapper>
             </div>
         );
     }
@@ -130,6 +132,7 @@ class ExhibitionDetail extends Component {
         for(let idx=0; idx<length; idx++) {
             const dot = document.createElement('span');
             dot.className = 'dot';
+            dot.dataset.id = idx;
             dot.addEventListener('click', () => {
                 this.showCurExhibition(idx);
             });

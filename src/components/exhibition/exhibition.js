@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import '../../style/exhibition/exhibition.scss';
 
-import MasonryLoading from '../loading/masonry_loading';
-import GridGallery from './grid_gallery';
+import MasonryLoading from '../loading/masonryLoading';
+import GridGallery from './gridGallery';
 
 class Exhibition extends Component {
     constructor(props) {

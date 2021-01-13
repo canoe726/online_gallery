@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import '../../style/notice/notice.scss';
 
 import Footer from '../footer/footer';
-import CollapsibleList from './collapsible_list';
+import CollapsibleList from './collapsibleList';
 
 class Notice extends Component {
     render() {

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import '../../style/home/home.scss';
 
-import HorizontalBanner from './horizontal_banner/horiziontal_banner';
-import NowExhibition from './exhibition_card/now_exhibition';
-import AuthorIntroduction from './author_card/author_introduction';
+import HorizontalBanner from './horizontal_banner/horiziontalBanner';
+import NowExhibition from './exhibition_card/nowExhibition';
+import AuthorIntroduction from './author_card/authorIntroduction';
 import Footer from '../footer/footer';
 
 import { lazyLoad } from '../../util/lazyLoading';

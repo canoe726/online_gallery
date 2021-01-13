@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import '../../style/author_detail/author_detail.scss';
+import '../../style/author_detail/authorDetail.scss';
 
-import InfoWrapper from './info_wrapper';
-import ArtworkMasonry from './artwork_masonry';
-import MasonryLoading from '../loading/masonry_loading';
+import InfoWrapper from './infoWrapper';
+import ArtworkMasonry from './artworkMasonry';
+import MasonryLoading from '../loading/masonryLoading';
 
 class AuthorDetail extends Component {
     constructor(props) {

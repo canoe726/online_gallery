@@ -8,9 +8,9 @@ import Menu from './components/menu/menu';
 import Home from './components/home/home';
 import Introduction from './components/introduction/introduction';
 import Exhibition from './components/exhibition/exhibition';
-import ExhibitionDetail from './components/exhibition_detail/exhibition_detail';
+import ExhibitionDetail from './components/exhibition_detail/exhibitionDetail';
 import Author from './components/author/author';
-import AuthorDetail from './components/author_detail/author_detail';
+import AuthorDetail from './components/author_detail/authorDetail';
 import Notice from './components/notice/notice';
 
 class App extends Component {

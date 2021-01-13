@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { toggleMasonryLoading } from '../loading/masonry_loading';
+import { toggleMasonryLoading } from '../loading/masonryLoading';
 
 import { lazyLoad } from '../../util/lazyLoading';
 import { resizeAllMasonryItems } from '../../util/masonry';
