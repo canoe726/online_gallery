@@ -3,53 +3,23 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import NavBar from './navBar';
+import Search from './search';
 
 class Menu extends Component {
     constructor(props) {
         super(props);
 
         this.checkCurrentUrl = this.checkCurrentUrl.bind(this);
-        this.searchInputFocus = this.searchInputFocus.bind(this);
-        this.searchInputBlur = this.searchInputBlur.bind(this);
     }
 
     componentDidMount() {
         // url 마다 다른 아이콘 표시
         this.checkCurrentUrl();
-        
-        // search btn 애니매이션
-        const searchInput = document.querySelector('#inpt_search');
-        searchInput.addEventListener('focus', this.searchInputFocus);
-        searchInput.addEventListener('blur', this.searchInputBlur);
     }
 
     componentDidUpdate() {
-        this.checkCurrentUrl();
-    }
-
-    componentWillUnmount() {
         // url 마다 다른 아이콘 표시
-        window.removeEventListener('load', this.checkCurrentUrl);
-        window.removeEventListener('hashchange', this.checkCurrentUrl);
-
-        // search btn 애니매이션
-        const searchInput = document.querySelector('#inpt_search');
-        searchInput.removeEventListener('focus', this.searchInputFocus);
-        searchInput.removeEventListener('blur', this.searchInputBlur);
-    }
-
-    searchInputFocus(e) {
-        const target = e.target.parentNode;
-        target.classList.add('active');
-    }
-
-    searchInputBlur(e) {
-        const target = e.target;
-        const value = target.value;
-        if(value.length === 0) {
-            const parent = target.parentNode;
-            parent.classList.remove('active');
-        }
+        this.checkCurrentUrl();
     }
 
     render() {
@@ -63,11 +33,7 @@ class Menu extends Component {
                     </Link>
                 </div>
 
-                <div className="search-wrapper">
-                    <label className="search" htmlFor="inpt_search">
-                        <input id="inpt_search" type="text"></input>
-                    </label>
-                </div>
+                <Search></Search>
             </div>
         );
     }

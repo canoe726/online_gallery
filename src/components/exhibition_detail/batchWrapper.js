@@ -43,8 +43,8 @@ class BatchWrapper extends Component {
 
     render() {
         return (
-            <div className="batch-wrapper">
-                <img className="img" src="/sample_img/artwork1.jpg" alt="batch_img"></img>
+            <div className="batch-wrapper active">
+                {/* <img className="img" src="/sample_img/artwork1.jpg" alt="batch_img"></img> */}
             </div>
         );
     }

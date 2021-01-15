@@ -20,23 +20,25 @@ class ModalWrapper extends Component {
     }
 
     componentDidMount() {
+        const modalWrapper = document.querySelector('#modal-wrapper');
         // click, drag 이미지 이동
-        document.querySelector('#modal-wrapper').addEventListener('mousedown', this.whenMouseDown);
-        document.querySelector('#modal-wrapper').addEventListener('mouseup', this.whenMouseUp);
-        document.querySelector('#modal-wrapper').addEventListener('mousemove', this.whenMouseMove);
+        modalWrapper.addEventListener('mousedown', this.whenMouseDown);
+        modalWrapper.addEventListener('mouseup', this.whenMouseUp);
+        modalWrapper.addEventListener('mousemove', this.whenMouseMove);
 
         // wheel 이미지 리사이즈
-        document.querySelector('#modal-wrapper').addEventListener('wheel', this.scaleModalContent);
+        modalWrapper.addEventListener('wheel', this.scaleModalContent);
     }
 
     componentWillUnmount() {
+        const modalWrapper = document.querySelector('#modal-wrapper');
         // click, drag 이미지 이동
-        document.querySelector('#modal-wrapper').removeEventListener('mousedown', this.whenMouseDown);
-        document.querySelector('#modal-wrapper').removeEventListener('mouseup', this.whenMouseUp);
-        document.querySelector('#modal-wrapper').removeEventListener('mousemove', this.whenMouseMove);
+        modalWrapper.removeEventListener('mousedown', this.whenMouseDown);
+        modalWrapper.removeEventListener('mouseup', this.whenMouseUp);
+        modalWrapper.removeEventListener('mousemove', this.whenMouseMove);
 
         // wheel 이미지 리사이즈
-        document.querySelector('#modal-wrapper').removeEventListener('wheel', this.scaleModalContent);
+        modalWrapper.removeEventListener('wheel', this.scaleModalContent);
     }
 
     whenMouseDown(e) {

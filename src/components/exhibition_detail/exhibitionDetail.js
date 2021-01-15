@@ -14,14 +14,18 @@ class ExhibitionDetail extends Component {
     constructor(props) {
         super(props);
 
-        // 현재 진행중인 전시 인덱스
-        this.detailIdx = 0;
-        this.initBackgroundMusic = this.initBackgroundMusic.bind(this);
-        this.initBackgroundImg = this.initBackgroundImg.bind(this);
-        this.initBatchImg = this.initBatchImg.bind(this);
-        this.initBatchNote = this.initBatchNote.bind(this);
+        this.throttler = undefined;
+        this.detailIdx = 0;         // 현재 진행중인 전시 인덱스
 
         this.state = {
+            intro: {
+                title: "Online Gallery",
+                contents: "Exhibition #1",
+                date: "2021.01.15",
+                backgroundType: "image",
+                backgroundImgPath: "/sample_img/artwork_d_3.jpg",
+                coworker: ['김영배','김의석','이원기']
+            },
             imgData: [],
             batchData: [
                 {
@@ -84,11 +88,25 @@ class ExhibitionDetail extends Component {
         //     console.log('error');
         // }
 
+        this.wheelChangeExhibition = this.wheelChangeExhibition.bind(this);
+        this.initBackgroundMusic = this.initBackgroundMusic.bind(this);
+        this.initBackgroundImg = this.initBackgroundImg.bind(this);
+        this.initBatchImg = this.initBatchImg.bind(this);
+        this.initBatchNote = this.initBatchNote.bind(this);
+
+        // 휠로 다음페이지 전환
+        window.addEventListener('wheel', this.wheelChangeExhibition);
+
+        // 첫 번째 그림으로 디테일 페이지를 보여줌
         this.initDot(this.state.batchData.length);
         this.initBackgroundImg(0);
-        this.initBackgroundMusic(0)
+        this.initBackgroundMusic(0);
 
+        // 현재 보여지는 전시를 바꿈
         this.showCurExhibition(this.detailIdx);
+        setTimeout(() => {
+            this.exhibitionAnimation();
+        }, 0);
     }
 
     componentWillUnmount() {
@@ -98,6 +116,8 @@ class ExhibitionDetail extends Component {
                 this.showCurExhibition(idx);
             });
         });
+
+        window.removeEventListener('wheel', this.wheelChangeExhibition);
     }
 
     render() {
@@ -126,6 +146,31 @@ class ExhibitionDetail extends Component {
                 ></ModalWrapper>
             </div>
         );
+    }
+
+    wheelChangeExhibition(e) {
+        if(!this.throttler) {
+            this.throttler = setTimeout(() => {
+                let isScrollUp = false;
+                if(e.deltaY < 0) isScrollUp = true;    
+                const length = this.state.batchData.length;
+                if(isScrollUp) {        // 다음 전시
+                    this.detailIdx -= 1;
+                    if(this.detailIdx < 0) this.detailIdx = length - 1;
+                } else {                // 이전 전시
+                    this.detailIdx += 1;
+                    if(this.detailIdx >= length) this.detailIdx = 0;    
+                }
+
+                this.exhibitionAnimation();
+                setTimeout(() => {
+                    this.showCurExhibition(this.detailIdx);     // 스크롤한 방향으로 이동
+                    this.exhibitionAnimation();
+
+                    this.throttler = undefined;
+                }, 2000);
+            }, 200);
+        }
     }
 
     initDot(length) {           // 하단 dot 생성
@@ -163,6 +208,17 @@ class ExhibitionDetail extends Component {
         this.setState({
             curBatchNote: this.state.batchData[idx].batchNote
         });
+    }
+
+    exhibitionAnimation() {
+        // change animation
+        const backgroundImg = document.querySelector('.background-img');
+        const batchWrapper = document.querySelector('.batch-wrapper');
+        const batchNote = document.querySelector('.batch-note');
+
+        backgroundImg.classList.toggle('active');
+        batchWrapper.classList.toggle('active');
+        batchNote.classList.toggle('active');
     }
 
     showCurExhibition(idx) {

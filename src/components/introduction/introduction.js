@@ -67,8 +67,7 @@ class Introduction extends Component {
         for(let idx=0; idx<this.numOfSection; idx++) {
 
             const itemSection = document.createElement('section');
-            // 항상 첫 번째 카드가 활성화
-            if(idx === 0) {
+            if(idx === 0) {                             // 항상 첫 번째 카드가 활성화
                 itemSection.className = 'hero-slider-item active';
             } else if(idx === (this.numOfSection - 1)) {
                 itemSection.className = 'hero-slider-item prev';

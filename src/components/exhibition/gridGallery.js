@@ -57,11 +57,9 @@ class GridGallery extends Component {
             masonryItem.className = 'masonry-item';
             masonryItem.dataset.id = this.itemId;
 
-            // exhibition_detail page 로 이동
-            masonryItem.addEventListener('click', e => {
+            masonryItem.addEventListener('click', e => {            // exhibition_detail page 로 이동
                 const itemId = e.target.parentNode.dataset.id
                 this.props.history.push(`/exhibition/${itemId}`);
-
             });
 
             const itemImg = document.createElement('img');
@@ -98,14 +96,12 @@ class GridGallery extends Component {
         const scrollTop = document.documentElement.scrollTop;
         const clientHeight = document.documentElement.clientHeight;
 
-        // 스크롤이 최하단이면서 fetch 중이 아닐 때 호출
-        if(scrollTop + clientHeight >= scrollHeight && !this.isFetch) {
+        if(scrollTop + clientHeight >= scrollHeight && !this.isFetch) {        // 스크롤이 최하단이면서 fetch 중이 아닐 때 호출
             toggleMasonryLoading();
             const data = this.props.onScroll('exhibition');
 
             this.isFetch = true;
-            if(!data) {
-                // 더이상 호출가능한 데이터가 없습니다.
+            if(!data) {                     // 더이상 호출가능한 데이터가 없습니다.
                 return;
             }
 

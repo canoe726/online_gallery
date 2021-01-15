@@ -21,6 +21,8 @@
     .background-img {
         width: 100%;
         height: 100%;
+        transition: 1.5s ease;
+        transform: translate(0px, 0px);
 
         .img {
             width: 100%;
@@ -35,6 +37,10 @@
         }
     }    
 
+    .background-img.active {
+        transform: translate(0px, 100%);
+    }   
+
     .batch-wrapper {
         cursor: pointer;
         position: absolute;
@@ -42,6 +48,8 @@
         left: 5%;
         width: 40%;
         height: 45%;
+        transition: 1.5s ease;
+        opacity: 1;
 
         .img {
             width: 100%;
@@ -54,6 +62,10 @@
             object-fit: scale-down;
         }
     }
+    
+    .batch-wrapper.active {
+        opacity: 0;
+    }
 
     .batch-note {
         position: absolute;
@@ -63,6 +75,8 @@
         height: 30%;
         background-color: black;
         color: white;
+        transition: 1.5s ease;
+        opacity: 1;
 
         .note-wrapper {
             width: 100%;
@@ -76,6 +90,10 @@
                 text-align: center;
             }
         }
+    }
+    
+    .batch-note.active {
+        opacity: 0;
     }
 
     .artwork-dot {
@@ -101,6 +119,12 @@
         }
     }
 
+    .hidden {
+        display: none;
+    }
+
     @import './modalWrapper.scss';
     @import './closeIcon.scss';
+
+
 }

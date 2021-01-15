@@ -11,7 +11,7 @@ class BackgroundImg extends Component {
 
     render() {
         return (
-            <div className="background-img"></div>
+            <div className="background-img active"></div>
         );
     }
 

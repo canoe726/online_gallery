@@ -57,8 +57,7 @@ class GridGallery extends Component {
             masonryItem.className = 'masonry-item';
             masonryItem.dataset.id = this.itemId;
 
-            // exhibition_detail page 로 이동
-            masonryItem.addEventListener('click', e => {
+            masonryItem.addEventListener('click', e => {            // exhibition_detail page 로 이동
                 const itemId = e.target.parentNode.dataset.id
                 this.props.history.push(`/author/${itemId}`);
             });

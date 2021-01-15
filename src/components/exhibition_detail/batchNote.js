@@ -11,7 +11,7 @@ class BatchNote extends Component {
 
     render() {
         return (
-            <div className="batch-note">
+            <div className="batch-note active">
                 <div className="note-wrapper">
                     <div className="author">작가명</div>
                     <div className="title">제목명</div>

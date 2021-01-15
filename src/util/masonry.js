@@ -20,8 +20,7 @@ function resizeMasonryItem(item) {
     item.style.gridRowEnd = 'span ' + rowSpan;
 }
 
-// 모든 masonry-item 에 대해서 크기 조정
-function resizeAllMasonryItems() {
+function resizeAllMasonryItems() {          // 모든 masonry-item 에 대해서 크기 조정
     const allItems = document.querySelectorAll('.masonry-item');
     allItems.forEach(item => {
       resizeMasonryItem(item);

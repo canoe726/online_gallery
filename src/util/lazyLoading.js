@@ -26,13 +26,11 @@ function lazyLoad() {
     }
 }
 
-// 특정 URL 에 따른 이미지 처리
-function checkUrl(lazyImage) {
+function checkUrl(lazyImage) {                              // 특정 URL 에 따른 이미지 처리
     const urls = window.location.href.split('/');
     const masonryUrl = ['exhibition', 'author'];
 
-    // masonry 가 존재하는 url 이면 위치 조정
-    for(let idx=0; idx<masonryUrl.length; idx++) {
+    for(let idx=0; idx<masonryUrl.length; idx++) {          // masonry 가 존재하는 url 이면 위치 조정
         if(urls[3] === masonryUrl[idx]) {
             lazyImage.addEventListener('load', () => {
                 resizeMasonryItem(lazyImage.parentNode);
