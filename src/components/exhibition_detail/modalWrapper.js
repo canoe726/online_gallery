@@ -161,10 +161,7 @@ class ModalWrapper extends Component {
                 }
                 playBackgroundMusic();
 
-            } else if(target.classList.contains('close-container') ||
-                      target.classList.contains('leftright') || 
-                      target.classList.contains('rightleft') ) {        // X 버튼 클릭
-
+            } else if(target.classList[0].includes('close')) {        // X 버튼 클릭
                 modalWrapper.classList.add('out');
 
                 if(modalVideo.src) {  // 비디오 초기화
