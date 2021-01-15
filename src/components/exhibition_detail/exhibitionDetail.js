@@ -95,7 +95,8 @@ class ExhibitionDetail extends Component {
         this.initBatchNote = this.initBatchNote.bind(this);
 
         // 휠로 다음페이지 전환
-        window.addEventListener('wheel', this.wheelChangeExhibition);
+        const backgroundImg = document.querySelector('.background-img');
+        backgroundImg.addEventListener('wheel', this.wheelChangeExhibition);
 
         // 첫 번째 그림으로 디테일 페이지를 보여줌
         this.initDot(this.state.batchData.length);
@@ -117,7 +118,9 @@ class ExhibitionDetail extends Component {
             });
         });
 
-        window.removeEventListener('wheel', this.wheelChangeExhibition);
+        // 휠로 다음페이지 전환
+        const backgroundImg = document.querySelector('.background-img');
+        backgroundImg.removeEventListener('wheel', this.wheelChangeExhibition);
     }
 
     render() {

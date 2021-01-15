@@ -103,6 +103,11 @@ class ModalWrapper extends Component {
     }
 
     scaleModalContent(e) {         // 휠을 이동하면서 크기 변경
+        const target = e.target;
+        if(target.classList[0].includes('close')) {
+            return;
+        }
+
         const dataType = this.props.data.type;
         const modal = e.target.parentNode;
 
@@ -175,8 +180,8 @@ class ModalWrapper extends Component {
         return (
             <div id="modal-wrapper" onClick={this.closeModal}>
                 <div className="close-container">
-                    <div className="leftright"></div>
-                    <div className="rightleft"></div>
+                    <div className="close-leftright"></div>
+                    <div className="close-rightleft"></div>
                 </div>
 
                 <div className="modal-background">

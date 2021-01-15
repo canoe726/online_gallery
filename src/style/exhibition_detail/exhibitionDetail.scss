@@ -67,30 +67,7 @@
         opacity: 0;
     }
 
-    .batch-note {
-        position: absolute;
-        bottom: 25%;
-        right: 10%;
-        width: 35%;
-        height: 30%;
-        background-color: black;
-        color: white;
-        transition: 1.5s ease;
-        opacity: 1;
-
-        .note-wrapper {
-            width: 100%;
-            height: 100%;
-            display: grid;
-            align-items: center;
-            vertical-align: middle;
-
-            div {
-                width: 100%;
-                text-align: center;
-            }
-        }
-    }
+    @import './batchNote.scss';
     
     .batch-note.active {
         opacity: 0;

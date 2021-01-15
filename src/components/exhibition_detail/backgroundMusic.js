@@ -6,7 +6,7 @@ class BackgroundMusic extends Component {
 
         this.playBackgroundMusic = playBackgroundMusic.bind(this);
         this.stopBackgroundMusic = stopBackgroundMusic.bind(this);
-        this.volumeBackgroundMusic = volumeBackgroundMusic(this);
+        this.volumeBackgroundMusic = volumeBackgroundMusic.bind(this);
     }
 
     componentDidMount() {
@@ -21,7 +21,7 @@ class BackgroundMusic extends Component {
         return (
             <div className="background-music">
                 <div className="turn-music-btn">
-                    <i className="fas fa-volume-up"></i>
+                    <i className="fas fa-volume-up" onClick={this.volumeBackgroundMusic}></i>
                 </div>
                 <div className="play-music-btn">
                     <i className="fas fa-play" onClick={this.playBackgroundMusic}></i>
@@ -38,17 +38,27 @@ class BackgroundMusic extends Component {
     }
 
     initBackgroundMusic(data) {     // 백그라운드 음악 재생
+        const backgroundMusicWrapper = document.querySelector('.background-music');
         const backgroundMusic = document.querySelector('.background-music .music');
         if(data.isExist) {
+            if(data.musicPath.length === 0) {
+                backgroundMusicWrapper.classList.add('hidden');
+                return;
+            }
+            if(backgroundMusicWrapper.classList.contains('hidden')) {
+                backgroundMusicWrapper.classList.remove('hidden');
+            }
+
             const musicSource = backgroundMusic.querySelector('source');
             musicSource.src = data.musicPath;
 
             // at first not allowed autoplay music
             backgroundMusic.load();
-            backgroundMusic.volume = 0.2;
+            backgroundMusic.volume = 0.15;
             backgroundMusic.play();
             
         } else {
+            backgroundMusicWrapper.classList.add('hidden');
             backgroundMusic.pause();
         }
     }
@@ -65,7 +75,15 @@ function stopBackgroundMusic() {
 }
 
 function volumeBackgroundMusic() {
-    // volume controller
+    const backgroundMusic = document.querySelector('.background-music .music');
+    const curVolume = backgroundMusic.volume;
+    if(curVolume === 0.15) {
+        backgroundMusic.volume = 0.075;
+    } else if(curVolume === 0.075) {
+        backgroundMusic.volume = 0.03;
+    } else if(curVolume === 0.03) {
+        backgroundMusic.volume = 0.15;
+    } 
 }
 
 export default BackgroundMusic;

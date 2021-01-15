@@ -38,10 +38,34 @@ class BackgroundImg extends Component {
         } else if(data.type === 'video') {
             const backgroundVideo = document.createElement('video');
             backgroundVideo.className = 'video';
+            backgroundVideo.classList.add('play');
             backgroundVideo.src = data.imgPath;
             backgroundVideo.autoplay = "autoplay";
             backgroundVideo.muted = "muted";
-            backgroundVideo.loop = "loop";
+            
+            backgroundVideo.addEventListener('click', e => {
+                const target = e.target;
+                if(target.classList.contains('ended')) {
+                    target.classList.remove('ended');
+                    target.classList.add('play');
+                    target.play();
+                    return;
+                }
+
+                if(target.classList.contains('play')) {
+                    target.classList.remove('play');
+                    target.pause();
+                } else {
+                    target.classList.add('play');
+                    target.play();
+                }
+            });
+
+            backgroundVideo.addEventListener('ended', e => {
+                const target = e.target;
+                target.classList.remove('play');
+                target.classList.add('ended');
+            });
 
             background.appendChild(backgroundVideo);
         }

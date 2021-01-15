@@ -11,12 +11,12 @@ $mediumblu: #1E272D;
   height: 25px;
   cursor: pointer;
 
-  &:hover .leftright {
+  &:hover .close-leftright {
     transform: rotate(-45deg);
     background-color: $afterColor;
   }
 
-  &:hover .rightleft {
+  &:hover .close-rightleft {
     transform: rotate(45deg);
     background-color: $afterColor;
   }
@@ -25,7 +25,7 @@ $mediumblu: #1E272D;
     opacity: 1;
   }
 
-  .leftright{
+  .close-leftright{
     height: 2px;
     width: 20px;
     position: absolute;
@@ -35,7 +35,7 @@ $mediumblu: #1E272D;
     transition: all .3s ease-in;
   }
   
-  .rightleft{
+  .close-rightleft{
     height: 2px;
     width: 20px;
     position: absolute;

@@ -43,9 +43,7 @@ class BatchWrapper extends Component {
 
     render() {
         return (
-            <div className="batch-wrapper active">
-                {/* <img className="img" src="/sample_img/artwork1.jpg" alt="batch_img"></img> */}
-            </div>
+            <div className="batch-wrapper active"></div>
         );
     }
 
@@ -67,7 +65,6 @@ class BatchWrapper extends Component {
             video.src = data.imgPath;
             video.autoplay = "autoplay";
             video.muted = "muted";
-            video.loop = "loop";
 
             batchWrapper.appendChild(video);
         }
