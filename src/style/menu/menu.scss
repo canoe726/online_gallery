@@ -16,19 +16,11 @@
         font-size: large;
     }
 
-    .search {
-        position: absolute;
-        top: 50%;
-        right: 2%;
-        transform: translate(-2%, -50%);
-        cursor: pointer;
-        transition: 0.5s ease;
-        opacity: 1;
-    }
-
     .hidden {
-        visibility: collapse;
+        // visibility: collapse;
         opacity: 0;
     }
+
+    @import './search.scss';
 }
 

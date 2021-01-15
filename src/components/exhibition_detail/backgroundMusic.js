@@ -4,9 +4,9 @@ class BackgroundMusic extends Component {
     constructor(props) {
         super(props);
 
-        this.playBackgroundMusic = this.playBackgroundMusic.bind(this);
-        this.stopBackgroundMusic = this.stopBackgroundMusic.bind(this);
-        this.volumeBackgroundMusic = this.volumeBackgroundMusic(this);
+        this.playBackgroundMusic = playBackgroundMusic.bind(this);
+        this.stopBackgroundMusic = stopBackgroundMusic.bind(this);
+        this.volumeBackgroundMusic = volumeBackgroundMusic(this);
     }
 
     componentDidMount() {
@@ -52,20 +52,21 @@ class BackgroundMusic extends Component {
             backgroundMusic.pause();
         }
     }
+}
 
-    playBackgroundMusic() {
-        const backgroundMusic = document.querySelector('.background-music .music');
-        backgroundMusic.play();
-    }
+function playBackgroundMusic() {
+    const backgroundMusic = document.querySelector('.background-music .music');
+    backgroundMusic.play();
+}
 
-    stopBackgroundMusic() {
-        const backgroundMusic = document.querySelector('.background-music .music');
-        backgroundMusic.pause();
-    }
+function stopBackgroundMusic() {
+    const backgroundMusic = document.querySelector('.background-music .music');
+    backgroundMusic.pause();
+}
 
-    volumeBackgroundMusic() {
-        // volume controller
-    }
+function volumeBackgroundMusic() {
+    // volume controller
 }
 
 export default BackgroundMusic;
+export { playBackgroundMusic, stopBackgroundMusic, volumeBackgroundMusic }

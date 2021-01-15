@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 
+import { initModalContent } from './modalWrapper';
+
+import { playBackgroundMusic, stopBackgroundMusic, volumeBackgroundMusic } from './backgroundMusic';
+
 class BatchWrapper extends Component {
     constructor(props) {
         super(props);
 
         this.toggleModal = this.toggleModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
     }
 
     componentDidMount() {
@@ -13,8 +16,6 @@ class BatchWrapper extends Component {
 
         const batchWrapper = document.querySelector('.batch-wrapper');
         batchWrapper.addEventListener('click', this.toggleModal);
-
-        window.addEventListener('click', this.closeModal);
     }
 
     componentDidUpdate() {
@@ -24,8 +25,6 @@ class BatchWrapper extends Component {
     componentWillUnmount() {
         const batchWrapper = document.querySelector('.batch-wrapper');
         batchWrapper.removeEventListener('click', this.toggleModal);
-
-        window.removeEventListener('click', this.closeModal);
     }
 
     toggleModal() {
@@ -36,20 +35,10 @@ class BatchWrapper extends Component {
             modalWrapper.classList.add('sketch');
         }
 
-        const modalImg = document.querySelector('#modal-wrapper .modal-img');
-        modalImg.removeAttribute('style');
-    }
-
-    closeModal(e) {
-        const target = e.target;
-        const isModalBackground = target.classList.contains('modal-background');
-
-        const modalWrapper = document.body.querySelector('#modal-wrapper');
-        const isSketch = modalWrapper.classList.contains('sketch');
-
-        if(isModalBackground && isSketch) {
-            modalWrapper.classList.add('out');
+        if(this.props.data.type === "video") {
+            stopBackgroundMusic();
         }
+        initModalContent(this.props.data);
     }
 
     render() {

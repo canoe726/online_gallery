@@ -5,9 +5,7 @@
     margin-left: 20px;
     font-size: large;
 
-    .fa-bars {
-        margin: auto;
-    }
+    @import './navBtn.scss';
     
     .hidden {
         visibility: none;
@@ -18,6 +16,7 @@
     }
     
     .nav-menus {
+        margin-top: 60px;
         height: 100%;
         width: 0;
         position: fixed;
@@ -32,7 +31,8 @@
         opacity: 0.9;
     }
       
-    .nav-menus a {
+    .nav-menus div {
+        cursor: pointer;
         padding: 8px 8px 8px 32px;
         text-decoration: none;
         font-size: 25px;
@@ -41,7 +41,7 @@
         transition: 0.3s;
     }
       
-    .nav-menus a:hover {
+    .nav-menus div:hover {
         color: #f1f1f1;
     }
       

@@ -61,6 +61,7 @@ class GridGallery extends Component {
             masonryItem.addEventListener('click', e => {
                 const itemId = e.target.parentNode.dataset.id
                 this.props.history.push(`/exhibition/${itemId}`);
+
             });
 
             const itemImg = document.createElement('img');

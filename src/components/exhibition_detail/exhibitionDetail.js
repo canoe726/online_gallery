@@ -122,6 +122,7 @@ class ExhibitionDetail extends Component {
                 <div className="artwork-dot"></div>
 
                 <ModalWrapper
+                data={this.state.curBatchImg}
                 ></ModalWrapper>
             </div>
         );

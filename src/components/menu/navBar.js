@@ -3,19 +3,25 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.toggleNav = this.toggleNav.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+
     componentDidMount() {
-        window.addEventListener('click', this.handleClickOutside.bind(this));
+        window.addEventListener('click', this.handleClickOutside);
     }
 
     render() {
         return(
             <div className="nav-bar">
                 <div className="nav-menu-btn">
-                    <i className="fas fa-bars" onClick={this.openNav.bind(this)}></i>
+                    <button className="menu-toggle" onClick={this.toggleNav}>Menu</button>
                 </div>
 
-                <div id="main-side-nav" className="nav-menus">                    
-                    <a href="#closebtn" className="close-btn" onClick={this.closeNav.bind(this)}>&times;</a>
+                <div id="main-side-nav" className="nav-menus">
                     <Link to="/introduction">
                         <div>온라인 갤러리 소개</div>
                     </Link>
@@ -34,22 +40,31 @@ class NavBar extends Component {
     }
 
     handleClickOutside(e) {
-        const navBar = document.querySelector('#main-side-nav');
-        const width = navBar.style.width;      
-        const btn = e.target.classList.contains('fa-bars');
-        const nav = e.target.classList.contains('nav-menus');
-        if(width === "350px" && !btn && !nav) {
-            document.querySelector('#main-side-nav').style.width = "0";
+        const mainSideNav = document.querySelector('#main-side-nav');
+        const width = mainSideNav.style.width;      
+        const isMenu = e.target.classList.contains('menu-toggle');
+        const isSideNav = e.target.classList.contains('nav-menus');
+
+        if(!isMenu && !isSideNav) {
+            if(width === "350px") {
+                mainSideNav.style.width = "0";
+                
+                const menuToggle = document.querySelector('.menu-toggle');
+                menuToggle.classList.remove('is-active');
+            }
         }
     }
 
-    openNav(e) {
-        document.querySelector('#main-side-nav').style.width = "350px";
-    }
-    
-    closeNav(e) {
-        e.preventDefault();
-        document.querySelector('#main-side-nav').style.width = "0";
+    toggleNav(e) {
+        const target = e.target;
+        target.classList.toggle('is-active');
+        
+        const mainSideNav = document.querySelector('#main-side-nav');
+        if(target.classList.contains('is-active')) {
+            mainSideNav.style.width = "350px";
+        } else {
+            mainSideNav.style.width = "0px";
+        }
     }
 }
 

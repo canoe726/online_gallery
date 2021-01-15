@@ -1,33 +1,46 @@
-// COLORS
-$softorange: white;
-$tomatored: #F25C66;
+$beforeColor: white;
+$afterColor: white;
 $mediumblu: #1E272D;
 
-.close-container{
+.close-container {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 16px;
+  right: 16px;
 
-  width: 25px;
+  width: 20px;
   height: 25px;
   cursor: pointer;
 
+  &:hover .leftright {
+    transform: rotate(-45deg);
+    background-color: $afterColor;
+  }
+
+  &:hover .rightleft {
+    transform: rotate(45deg);
+    background-color: $afterColor;
+  }
+
+  &:hover label {
+    opacity: 1;
+  }
+
   .leftright{
     height: 2px;
-    width: 25px;
+    width: 20px;
     position: absolute;
     margin-top: 12px;
-    background-color: $softorange;
+    background-color: $beforeColor;
     transform: rotate(45deg);
     transition: all .3s ease-in;
   }
   
   .rightleft{
     height: 2px;
-    width: 25px;
+    width: 20px;
     position: absolute;
     margin-top: 12px;
-    background-color: $softorange;
+    background-color: $beforeColor;
     transform: rotate(-45deg);
     transition: all .3s ease-in;
   }
@@ -41,18 +54,4 @@ $mediumblu: #1E272D;
     transition: all .3s ease-in;
     opacity: 0;
   }
-}
-
-.close-container:hover .leftright {
-    transform: rotate(-45deg);
-    background-color: $tomatored;
-}
-
-.close-container:hover .rightleft {
-    transform: rotate(45deg);
-    background-color: $tomatored;
-}
-
-.close-container:hover label {
-    opacity: 1;
 }
