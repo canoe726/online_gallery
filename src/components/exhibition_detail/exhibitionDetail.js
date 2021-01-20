@@ -21,8 +21,6 @@ class ExhibitionDetail extends Component {
         // this.initExhibitionDetailData = this.initExhibitionDetailData(this);
 
         this.initBackgroundMusic = this.initBackgroundMusic.bind(this);
-        this.initBackgroundImg = this.initBackgroundImg.bind(this);
-        this.initBatchImg = this.initBatchImg.bind(this);
         this.initBatchNote = this.initBatchNote.bind(this);
 
         this.state = {
@@ -86,7 +84,7 @@ class ExhibitionDetail extends Component {
         // this.initExhibitionDetailData(idx);
 
         // 휠로 다음페이지 전환
-        const backgroundImg = document.querySelector('.background-img');
+        const backgroundImg = document.querySelector('.background-wrapper');
         backgroundImg.addEventListener('wheel', this.wheelChangeExhibition);
 
         // 첫 번째 그림으로 디테일 페이지를 보여줌
@@ -99,13 +97,13 @@ class ExhibitionDetail extends Component {
     componentWillUnmount() {
         const artworkDots = document.querySelectorAll('.artwork-dot .dot');
         artworkDots.forEach((dot, idx) => {
-            dot.removeEventListener('click', () => {
-                this.showCurExhibition(idx);
+            dot.removeEventListener('click', e => {
+                this.wheelChangeExhibition(e);
             });
         });
 
         // 휠로 다음페이지 전환
-        const backgroundImg = document.querySelector('.background-img');
+        const backgroundImg = document.querySelector('.background-wrapper');
         backgroundImg.removeEventListener('wheel', this.wheelChangeExhibition);
     }
 
@@ -117,11 +115,11 @@ class ExhibitionDetail extends Component {
                 ></BackgroundMusic>
 
                 <BackgroundWrapper
-                data={this.state.curBackgroundImg}
+                data={this.state.batchData}
                 ></BackgroundWrapper>
 
                 <BatchWrapper
-                data={this.state.curBatchImg}
+                data={this.state.batchData}
                 ></BatchWrapper>
 
                 <BatchNote
@@ -142,22 +140,74 @@ class ExhibitionDetail extends Component {
             this.throttler = setTimeout(() => {
                 let isScrollUp = false;
                 if(e.deltaY < 0) isScrollUp = true;    
+
                 const length = this.state.batchData.length;
-                if(isScrollUp) {        // 다음 전시
+                const backgroundWrapper = document.querySelector('.background-wrapper');
+                const backgroundItems = document.querySelectorAll('.background-wrapper .hero-section');
+                
+                const batchWrapper = document.querySelector('.batch-wrapper');
+                const batchWrapperItems = document.querySelectorAll('.batch-wrapper .hero-section');
+
+                if(isScrollUp) {        // 이전 전시
+                    this.scrollUpAnimation(backgroundWrapper, backgroundItems, this.detailIdx, length);
+                    this.scrollUpAnimation(batchWrapper, batchWrapperItems, this.detailIdx, length);
+
                     this.detailIdx -= 1;
                     if(this.detailIdx < 0) this.detailIdx = length - 1;
-                } else {                // 이전 전시
+
+                } else {                // 다음 전시
+                    this.scrollDownAnimation(backgroundWrapper, backgroundItems, this.detailIdx, length);
+                    this.scrollDownAnimation(batchWrapper, batchWrapperItems, this.detailIdx, length);
+
                     this.detailIdx += 1;
-                    if(this.detailIdx >= length) this.detailIdx = 0;    
+                    if(this.detailIdx >= length) this.detailIdx = 0;
                 }
 
-                setTimeout(() => {
-                    this.showCurExhibition(this.detailIdx);     // 스크롤한 방향으로 이동
-
-                    this.throttler = undefined;
-                }, 2000);
-            }, 200);
+                // change cur exhibition
+                this.showCurExhibition(this.detailIdx);
+                this.throttler = undefined;
+            }, 400);
         }
+    }
+
+    scrollUpAnimation(wrapper, element, idx, length) {
+        let before = idx - 1;
+        let next = idx + 1;
+
+        wrapper.classList.add('load-prev');
+        wrapper.classList.remove('load-next');
+
+        if(before < 0) before = length - 1;
+        if(next > length - 1) next = 0;
+
+        element[before].classList.add('active');
+        element[before].classList.remove('prev');
+
+        element[idx].classList.add('prev');
+        element[idx].classList.remove('active');
+
+        element[next].classList.remove('prev');
+        element[next].classList.remove('active');
+    }
+
+    scrollDownAnimation(wrapper, element, idx, length) {
+        let before = idx - 1;
+        let next = idx + 1;
+
+        wrapper.classList.add('load-next');
+        wrapper.classList.remove('load-prev');
+
+        if(before < 0) before = length - 1;
+        if(next > length - 1) next = 0;
+
+        element[before].classList.remove('prev');
+        element[before].classList.remove('active');
+
+        element[idx].classList.add('prev');
+        element[idx].classList.remove('active');
+
+        element[next].classList.add('active');
+        element[next].classList.remove('prev');
     }
 
     initDot(length) {           // 하단 dot 생성
@@ -166,8 +216,8 @@ class ExhibitionDetail extends Component {
             const dot = document.createElement('span');
             dot.className = 'dot';
             dot.dataset.id = idx;
-            dot.addEventListener('click', () => {
-                this.showCurExhibition(idx);
+            dot.addEventListener('click', e => {
+                this.wheelChangeExhibition(e);
             });
             artworkDot.appendChild(dot);
         }
@@ -188,35 +238,12 @@ class ExhibitionDetail extends Component {
         this.setState({
             curBackgroundMusic: this.state.batchData[idx].backgroundMusic
         });
-    }
-
-    initBackgroundImg(idx) {
-        this.setState({
-            curBackgroundImg: this.state.batchData[idx].backgroundImg
-        });
-    }
-
-    initBatchImg(idx) {
-        this.setState({
-            curBatchImg: this.state.batchData[idx].batchImg
-        });
-    }
+    }    
 
     initBatchNote(idx) {
         this.setState({
             curBatchNote: this.state.batchData[idx].batchNote
         });
-    }
-
-    exhibitionAnimation() {
-        // change animation
-        const backgroundImg = document.querySelector('.background-img');
-        const batchWrapper = document.querySelector('.batch-wrapper');
-        const batchNote = document.querySelector('.batch-note');
-
-        backgroundImg.classList.toggle('active');
-        batchWrapper.classList.toggle('active');
-        batchNote.classList.toggle('active');
     }
 
     showCurExhibition(idx) {
@@ -225,21 +252,13 @@ class ExhibitionDetail extends Component {
         dots.forEach(dot => {
             dot.classList.remove('active');
         });
-
         dots[idx].classList.add('active');
 
         // change background
-        const backgroundImage = document.querySelector('.background-img')
-        backgroundImage.innerHTML = '';
-
         this.initBackgroundMusic(idx);
-        this.initBackgroundImg(idx);
 
         // change batch
-        this.initBatchImg(idx);
         this.initBatchNote(idx);
-
-        
     }    
 }
 

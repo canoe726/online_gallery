@@ -46,7 +46,7 @@ class BatchNote extends Component {
         contents.forEach((content, idx) => {
             setTimeout(() => {
                 content.classList.add('active');
-            }, 300*idx);
+            }, 500*idx);
         });
     }   
     

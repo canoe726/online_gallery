@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { playBackgroundMusic, stopBackgroundMusic, volumeBackgroundMusic } from './backgroundMusic';
+import { playBackgroundMusic } from './backgroundMusic';
 
 class ModalWrapper extends Component {
     constructor(props) {
@@ -58,13 +58,9 @@ class ModalWrapper extends Component {
     whenMouseMove(e) {
         e.preventDefault();
         if(this.isDown) {     // 드래그 상태에서 움직인 경우
-            if(e.target.classList.contains('modal-img')) {
+            if(e.target.tagName === "IMG") {
                 const modalImg = e.target;
                 this.howToMove(modalImg, e);
-
-            } else if(e.target.classList.contains('modal-video')) {
-                const modalVideo = e.target;
-                this.howToMove(modalVideo, e);
             }
         }
     }
@@ -108,18 +104,14 @@ class ModalWrapper extends Component {
             return;
         }
 
-        const dataType = this.props.data.type;
+        const dataType = target.tagName;
         const modal = e.target.parentNode;
 
         let isScrollUp = false;
         if(e.deltaY < 0) isScrollUp = true;
-        if(dataType === "image") {
+        if(dataType === "IMG") {
             const modalImg = modal.querySelector('.modal-img');
             this.howToScale(isScrollUp, modalImg);
-
-        } else if(dataType === "video") {
-            const modalVideo = modal.querySelector('.modal-video');
-            this.howToScale(isScrollUp, modalVideo);
         }
     }
 
@@ -195,8 +187,8 @@ class ModalWrapper extends Component {
     }
 }
 
-function initModalContent(data) {
-    if(!data.type) return;
+function initModalContent(target) {
+    if(!target) return;
     
     const modalImg = document.querySelector('.modal-img');
     const modalVideo = document.querySelector('.modal-video');
@@ -204,17 +196,17 @@ function initModalContent(data) {
     modalImg.removeAttribute('style');
     modalVideo.removeAttribute('style');
 
-    if(data.type === "image") {
+    if(target.tagName === "IMG") {
         modalImg.classList.remove('hidden');
-        modalImg.src = data.imgPath;
+        modalImg.src = target.src;
 
         modalVideo.classList.add('hidden');
 
-    } else if(data.type === "video") {
+    } else if(target.tagName === "VIDEO") {
         modalImg.classList.add('hidden');
         
         modalVideo.classList.remove('hidden');
-        modalVideo.src = data.imgPath;
+        modalVideo.src = target.src;
         modalVideo.currentTime = 0;
         modalVideo.play();
     }
