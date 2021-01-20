@@ -1,6 +1,11 @@
-const BASE_URL = 'https://api.harvardartmuseums.org/exhibition';
-const DETAIL_URL = '/4236';
-const API_KEY = '?apikey=954c59e1-2588-4641-adbc-9e90a3b6ebb0';
+const BASE_URL = 'http://www.online-gallery.co.kr:8081/';
+const INFO_URL = 'info';
+const HOME_BANNER = 'home/banner';
+const HOME_EXHIBITION = 'home/exhibition';
+const HOME_ARTIST = 'home/artist';
+const EXHIBITION = 'exhibition';
+const PICTURE = 'picture';
+const ARTIST = 'artist';
 
 let whileFetching = false;
 let abortController;
@@ -13,9 +18,10 @@ const request = async url => {
         whileFetching = true;
 
         const response = await fetch(url, {
+            mode: 'cors',
             signal: abortController.signal
         });
-
+        
         if(response.ok) {
             const result = await response.json();
             whileFetching = false;
@@ -54,7 +60,16 @@ const getResponse = async url => {
 }
 
 const api = {
-    getDetailArtworks: () => getResponse(BASE_URL + DETAIL_URL + API_KEY),
+    getInfo: () => getResponse(BASE_URL + INFO_URL),
+    getHomeBanner: () => getResponse(BASE_URL + HOME_BANNER),
+    getHomeExhibition: () => getResponse(BASE_URL + HOME_EXHIBITION),
+    getHomeArtist: () => getResponse(BASE_URL + HOME_ARTIST),
+    getExhibition: () => getResponse(BASE_URL + EXHIBITION),
+    getExhibitionById: (id) => getResponse(BASE_URL + EXHIBITION + `/${id}`),
+    getPicture: () => getResponse(BASE_URL + PICTURE),
+    getPictureId: (id) => getResponse(BASE_URL + PICTURE + `/${id}`),
+    getArtist: () => getResponse(BASE_URL + ARTIST),
+    getArtistById: (id) => getResponse(BASE_URL + ARTIST + `/${id}`),
 }
 
 export { api }

@@ -9,6 +9,8 @@ import Footer from '../footer/footer';
 
 import { lazyLoad } from '../../util/lazyLoading';
 
+import { api } from '../../api/onlineGalleryApi';
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +24,7 @@ class Home extends Component {
     
     componentDidMount() {
         // get async data from home restful api and setstate
-        // this.initHorizontalBannerImg(async_data);
+        // this.initHorizontalBannerData();
         // this.initNowExhibitionData(async_data);
         // this.initAuthorIntroductionData(async_data);
 
@@ -70,22 +72,37 @@ class Home extends Component {
         );
     }
 
-    initHorizontalBannerData(data) {
-        this.setState({
-            horizontalBannerData: data
-        });
+    async initHorizontalBannerData() {
+        const response = await api.getHomeBanner();
+        if(!response.isError) {
+            this.setState({
+                horizontalBannerData: response
+            });
+        } else {
+            // error page
+        }
     }
 
-    initNowExhibitionData(data) {
-        this.setState({
-            howExhibitionData: data
-        });
+    async initNowExhibitionData() {
+        const response = await api.getHomeExhibition();
+        if(!response.isError) {
+            this.setState({
+                howExhibitionData: response
+            });
+        } else {
+            // error page
+        }
     }
 
-    initAuthorIntroductionData(data) {
-        this.setState({
-            authorIntroductionData: data
-        });
+    async initAuthorIntroductionData() {
+        const response = await api.getHomeArtist();
+        if(!response.isError) {
+            this.setState({
+                authorIntroductionData: response
+            });
+        } else {
+            // error page
+        }
     }
 }
 

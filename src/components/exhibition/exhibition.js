@@ -5,6 +5,8 @@ import '../../style/exhibition/exhibition.scss';
 import MasonryLoading from '../loading/masonryLoading';
 import GridGallery from './gridGallery';
 
+import { api } from '../../api/onlineGalleryApi';
+
 class Exhibition extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +27,7 @@ class Exhibition extends Component {
 
     componentDidMount() {
         // fetch init data async
-        // this.initGridGalleryData(async_data);
+        // this.initGridGalleryData();
     }
 
     render() {
@@ -53,10 +55,15 @@ class Exhibition extends Component {
         );
     }
 
-    initGridGalleryData(data) {
-        this.state({
-            gridGalleryData: data
-        });
+    async initGridGalleryData() {
+        const response = await api.getExhibition();
+        if(!response.isError) {
+            this.state({
+                gridGalleryData: response
+            });
+        } else {
+            // error page
+        }
     }
 }
 

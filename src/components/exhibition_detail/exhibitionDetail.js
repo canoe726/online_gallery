@@ -16,6 +16,14 @@ class ExhibitionDetail extends Component {
 
         this.throttler = undefined;
         this.detailIdx = 0;         // 현재 진행중인 전시 인덱스
+        
+        this.wheelChangeExhibition = this.wheelChangeExhibition.bind(this);
+        // this.initExhibitionDetailData = this.initExhibitionDetailData(this);
+
+        this.initBackgroundMusic = this.initBackgroundMusic.bind(this);
+        this.initBackgroundImg = this.initBackgroundImg.bind(this);
+        this.initBatchImg = this.initBatchImg.bind(this);
+        this.initBatchNote = this.initBatchNote.bind(this);
 
         this.state = {
             intro: {
@@ -37,7 +45,7 @@ class ExhibitionDetail extends Component {
                     batchNote:
                     {
                         boxWidth: 40, boxHeight: 30, boxBorderColor: null, boxBorderOpacity: null, boxBackgroundColor: '#ffffff', boxBackgroundColorOpacity: null, boxRadius: '10', boxAlign: 'LC',
-                        caption:{author: 'kim', title: 'artwork - 1', material: 'oil paint', size: '30 x 100', year: '2021', color: '#000000', opacity: '0.9'}
+                        caption:{comment: 'artwork 1 is drawn oil paint and the author name is kim who is famous field in oil paint', author: 'kim', title: 'artwork - 1', material: 'oil paint', size: '30 x 100', year: '2021', color: '#000000', opacity: '0.9'}
                     }
                 },
                 {
@@ -49,7 +57,7 @@ class ExhibitionDetail extends Component {
                     batchNote:
                     {
                         boxWidth: 30, boxHeight: 60, boxBorderColor: null, boxBorderOpacity: null, boxBackgroundColor: '#000000', boxBackgroundColorOpacity: null, boxRadius: '5', boxAlign: 'RB',
-                        caption:{author: 'kim, lee', title: 'artwork - 2', material: 'water paint', size: '120 x 120', year: '2021', color: '#000000', opacity: '1.0'}
+                        caption:{comment: 'artwork 2 is made of 2 authors who are kim and lee, and this is drawn by water paint.', author: 'kim, lee', title: 'artwork - 2', material: 'water paint', size: '120 x 120', year: '2021', color: '#000000', opacity: '1.0'}
                     }
                 },
                 {
@@ -61,7 +69,7 @@ class ExhibitionDetail extends Component {
                     batchNote:
                     {
                         boxWidth: 20, boxHeight: 60, boxBorderColor: null, boxBorderOpacity: null, boxBackgroundColor: '#ffffff', boxBackgroundColorOpacity: null, boxRadius: '10', boxAlign: 'LC',
-                        caption:{author: 'kim, choi', title: 'artwork - 3', material: 'oil paint', size: '200 x 60', year: '2021', color: '#000000', opacity: '0.9'}
+                        caption:{comment: 'artwork 3 is made of 2 authors who are kim and choi, and this is drawn by oil paint. Online gallery launched at first this artwork.', author: 'kim, choi', title: 'artwork - 3', material: 'oil paint', size: '200 x 60', year: '2021', color: '#000000', opacity: '0.9'}
                     }
                 },
             ],
@@ -69,30 +77,13 @@ class ExhibitionDetail extends Component {
             curBackgroundImg: {},
             curBatchImg: {},
             curBatchNote: {},
+            curExhibitionDetail: {},
         }
     }
 
     componentDidMount() {
         // data get async
-        // const response = await api.getDetailArtworks();
-        // if(!response.isError) {
-        //     const exhibition = response.data;
-            
-        //     this.initDot(3);
-        //     this.initBackgroundImg(this.state.batchData[0].backgroundImg);
-        //     this.initBackgroundMusic(0)
-
-        //     this.showCurExhibition(this.detailIdx);
-
-        // } else {
-        //     console.log('error');
-        // }
-
-        this.wheelChangeExhibition = this.wheelChangeExhibition.bind(this);
-        this.initBackgroundMusic = this.initBackgroundMusic.bind(this);
-        this.initBackgroundImg = this.initBackgroundImg.bind(this);
-        this.initBatchImg = this.initBatchImg.bind(this);
-        this.initBatchNote = this.initBatchNote.bind(this);
+        // this.initExhibitionDetailData(idx);
 
         // 휠로 다음페이지 전환
         const backgroundImg = document.querySelector('.background-img');
@@ -100,14 +91,9 @@ class ExhibitionDetail extends Component {
 
         // 첫 번째 그림으로 디테일 페이지를 보여줌
         this.initDot(this.state.batchData.length);
-        this.initBackgroundImg(0);
-        this.initBackgroundMusic(0);
 
         // 현재 보여지는 전시를 바꿈
         this.showCurExhibition(this.detailIdx);
-        setTimeout(() => {
-            this.exhibitionAnimation();
-        }, 0);
     }
 
     componentWillUnmount() {
@@ -165,10 +151,8 @@ class ExhibitionDetail extends Component {
                     if(this.detailIdx >= length) this.detailIdx = 0;    
                 }
 
-                this.exhibitionAnimation();
                 setTimeout(() => {
                     this.showCurExhibition(this.detailIdx);     // 스크롤한 방향으로 이동
-                    this.exhibitionAnimation();
 
                     this.throttler = undefined;
                 }, 2000);
@@ -186,6 +170,17 @@ class ExhibitionDetail extends Component {
                 this.showCurExhibition(idx);
             });
             artworkDot.appendChild(dot);
+        }
+    }
+
+    async initExhibitionDetailData(idx) {
+        const response = await api.getExhibitionById(idx);
+        if(!response.isError) {
+            this.setState({
+                curExhibitionDetail: response
+            });
+        } else {
+            // error page
         }
     }
     
@@ -243,6 +238,8 @@ class ExhibitionDetail extends Component {
         // change batch
         this.initBatchImg(idx);
         this.initBatchNote(idx);
+
+        
     }    
 }
 

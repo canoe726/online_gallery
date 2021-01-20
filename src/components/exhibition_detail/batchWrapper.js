@@ -43,7 +43,7 @@ class BatchWrapper extends Component {
 
     render() {
         return (
-            <div className="batch-wrapper active"></div>
+            <div className="batch-wrapper"></div>
         );
     }
 

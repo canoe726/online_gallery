@@ -4,6 +4,8 @@ import '../../style/introduction/introduction.scss';
 
 import { setFullPage } from '../../util/fullPage';
 
+import { api } from '../../api/onlineGalleryApi'; 
+
 class Introduction extends Component {
     constructor(props) {
         super(props);
@@ -36,7 +38,7 @@ class Introduction extends Component {
 
     componentDidMount() {
         // after fetch async add element
-        // this.initIntroductionCardData(async data)
+        // this.initIntroductionCardData();
 
         this.initIntroductionCard();
 
@@ -55,10 +57,15 @@ class Introduction extends Component {
         );
     }
 
-    initIntroductionCardData(data) {
-        this.setState({
-            cardData: data
-        });
+    async initIntroductionCardData() {
+        const response = await api.getInfo();
+        if(!response.isError) {
+            this.setState({
+                cardData: response
+            });
+        } else {
+            // error page
+        }
     }
 
     initIntroductionCard() {    
