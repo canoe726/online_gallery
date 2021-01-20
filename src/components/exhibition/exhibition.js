@@ -12,6 +12,8 @@ class Exhibition extends Component {
         super(props);
 
         this.initGridGalleryData = this.initGridGalleryData.bind(this);
+        this.changeCursorToScroll = this.changeCursorToScroll.bind(this);
+        this.cursorTimeout = null;
 
         this.state = {
             paths: ['sample_img/artwork1.jpg', 'sample_img/artwork2.jpg',
@@ -28,11 +30,33 @@ class Exhibition extends Component {
     componentDidMount() {
         // fetch init data async
         // this.initGridGalleryData();
+
+        window.addEventListener('mousemove', this.changeCursorToScroll);
+        window.addEventListener('wheel', this.changeCursorToScroll);
+
+        this.cursorTimeout = setTimeout(() => {
+            window.removeEventListener('mousemove', this.changeCursorToScroll);
+            window.removeEventListener('wheel', this.changeCursorToScroll);
+
+            const cursorScroll = document.querySelector('.cursor-scroll');
+            cursorScroll.remove();
+        }, 3000);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('mousemove', this.changeCursorToScroll);
+        window.removeEventListener('wheel', this.changeCursorToScroll);
+
+        clearTimeout(this.cursorTimeout);
     }
 
     render() {
         return (
             <div className="exhibition-wrapper">
+                <div className="cursor-scroll">
+                    <p>Scroll</p>
+                </div>
+                
                 <div className="masonry-wrapper">
                     <GridGallery
                     data={
@@ -53,6 +77,16 @@ class Exhibition extends Component {
                 <MasonryLoading></MasonryLoading>
             </div>
         );
+    }
+
+    changeCursorToScroll(e) {
+        const cursorScroll = document.querySelector('.cursor-scroll');
+
+        const curMouseX = e.clientX;
+        const curMouseY = e.clientY;
+
+        cursorScroll.style.top = (window.scrollY + curMouseY - 44) + 'px';
+        cursorScroll.style.left = (curMouseX - 26) + 'px';
     }
 
     async initGridGalleryData() {
