@@ -23,6 +23,7 @@ class BatchNote extends Component {
 
     initBatchNote(data) {
         if(Object.keys(data).length === 0) return;
+        this.initContentAnimation();
 
         const batchNote = document.querySelector('.batch-note');
         batchNote.innerHTML = '';

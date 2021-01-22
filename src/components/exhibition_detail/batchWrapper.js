@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { initModalContent } from './modalWrapper';
 
-import { playBackgroundMusic, stopBackgroundMusic, volumeBackgroundMusic } from './backgroundMusic';
+import { stopBackgroundMusic } from './backgroundMusic';
 
 class BatchWrapper extends Component {
     constructor(props) {
