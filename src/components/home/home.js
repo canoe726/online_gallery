@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 
 import '../../style/home/home.scss';
 
-import HorizontalBanner from './horizontal_banner/horiziontalBanner';
-import NowExhibition from './exhibition_card/nowExhibition';
-import AuthorIntroduction from './author_card/authorIntroduction';
+import HorizontalBanner from './horiziontalBanner';
+import NowExhibition from './nowExhibition';
+import AuthorIntroduction from './authorIntroduction';
 import Footer from '../footer/footer';
 
-import { lazyLoad } from '../../util/lazyLoading';
+import { lazyLoad } from '../../util/lazyLoading.js';
 
 import { api } from '../../api/onlineGalleryApi';
 
@@ -24,7 +24,7 @@ class Home extends Component {
     
     componentDidMount() {
         // get async data from home restful api and setstate
-        // this.initHorizontalBannerData();
+        this.initHorizontalBannerData();
         // this.initNowExhibitionData(async_data);
         // this.initAuthorIntroductionData(async_data);
 
@@ -74,6 +74,7 @@ class Home extends Component {
 
     async initHorizontalBannerData() {
         const response = await api.getHomeBanner();
+        console.log(response);
         if(!response.isError) {
             this.setState({
                 horizontalBannerData: response

@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 
 import { toggleMasonryLoading } from '../loading/masonryLoading';
 
-import { lazyLoad } from '../../util/lazyLoading';
+import { lazyLoad } from '../../util/lazyLoading.js';
 import { resizeAllMasonryItems } from '../../util/masonry';
 
 class GridGallery extends Component {
@@ -58,7 +58,7 @@ class GridGallery extends Component {
             masonryItem.dataset.id = this.itemId;
 
             masonryItem.addEventListener('click', e => {            // exhibition_detail page 로 이동
-                const itemId = e.target.parentNode.dataset.id
+                const itemId = e.target.parentNode.dataset.id;
                 this.props.history.push(`/exhibition/${itemId}`);
             });
 

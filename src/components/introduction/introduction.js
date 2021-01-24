@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 
 import '../../style/introduction/introduction.scss';
 
@@ -6,7 +6,7 @@ import { setFullPage } from '../../util/fullPage';
 
 import { api } from '../../api/onlineGalleryApi'; 
 
-class Introduction extends Component {
+class Introduction extends React.Component {
     constructor(props) {
         super(props);
 
@@ -38,7 +38,7 @@ class Introduction extends Component {
 
     componentDidMount() {
         // after fetch async add element
-        // this.initIntroductionCardData();
+        this.initIntroductionCardData();
 
         this.initIntroductionCard();
 
@@ -63,6 +63,7 @@ class Introduction extends Component {
             this.setState({
                 cardData: response
             });
+            console.log(response);
         } else {
             // error page
         }

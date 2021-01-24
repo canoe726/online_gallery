@@ -10,9 +10,11 @@ const ARTIST = 'artist';
 let whileFetching = false;
 let abortController;
 
-const request = async url => {
+const request = async (url) => {
     try {
-        if(whileFetching) abortController.abort();
+        if (whileFetching) {
+            abortController.abort();
+        }
 
         abortController = new AbortController();
         whileFetching = true;
@@ -22,7 +24,7 @@ const request = async url => {
             signal: abortController.signal
         });
         
-        if(response.ok) {
+        if (response.ok) {
             const result = await response.json();
             whileFetching = false;
             return result;
@@ -30,34 +32,34 @@ const request = async url => {
             const err = await response.json();
             throw err;
         }
-    } catch(e) {
-        if(e.name === 'AbortError') {
+    } catch (e) {
+        if (e.name === 'AbortError') {
             return {
                 status: 'FetchAbort'
-            }
+            };
         } else {
             return {
                 message: e.message,
                 status: e.status
-            }
+            };
         }
     }
-}
+};
 
-const getResponse = async url => {
+const getResponse = async (url) => {
     try {
         const response = await request(url);
         return {
             isError: false,
             data: response
-        }
-    } catch(e) {
+        };
+    } catch (e) {
         return {
             isError: true,
             data: e
-        }
+        };
     }
-}
+};
 
 const api = {
     getInfo: () => getResponse(BASE_URL + INFO_URL),
@@ -70,6 +72,6 @@ const api = {
     getPictureId: (id) => getResponse(BASE_URL + PICTURE + `/${id}`),
     getArtist: () => getResponse(BASE_URL + ARTIST),
     getArtistById: (id) => getResponse(BASE_URL + ARTIST + `/${id}`),
-}
+};
 
-export { api }
+export { api };

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 
 import { toggleMasonryLoading } from '../loading/masonryLoading';
 
-import { lazyLoad } from '../../util/lazyLoading';
+import { lazyLoad } from '../../util/lazyLoading.js';
 import { resizeAllMasonryItems } from '../../util/masonry';
 
 class ArtworkMasonry extends Component {
@@ -118,4 +117,4 @@ class ArtworkMasonry extends Component {
     }
 }
 
-export default withRouter(ArtworkMasonry);
+export default ArtworkMasonry;

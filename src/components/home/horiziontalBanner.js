@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import {withRouter} from 'react-router-dom';
-
 class HorizontalBanner extends Component {
     constructor(props) {
         super(props);
@@ -99,4 +97,4 @@ class HorizontalBanner extends Component {
     }
 }
 
-export default withRouter(props => <HorizontalBanner {...props}/>);
+export default HorizontalBanner;

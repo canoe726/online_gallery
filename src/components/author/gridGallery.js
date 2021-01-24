@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import { toggleMasonryLoading } from '../loading/masonryLoading';
 
-import { lazyLoad } from '../../util/lazyLoading';
+import { lazyLoad } from '../../util/lazyLoading.js';
 import { resizeAllMasonryItems } from '../../util/masonry';
 
 class GridGallery extends Component {
